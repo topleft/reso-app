@@ -1,4 +1,5 @@
-# Event Reservation App
+#Rezo
+#### Event Reservation App
 
 ### summary
 
