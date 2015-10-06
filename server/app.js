@@ -16,6 +16,7 @@ var User = require('./database').User;
 
 // *** routes *** //
 var routes = require('./routes/index.js');
+var APIroutes = require('./routes/APIroutes.js');
 
 
 // *** express instance *** //
@@ -66,6 +67,7 @@ app.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../client/public/views/', 'layout.html'));
 });
 app.use('/', routes);
+app.use('/api/v1/', APIroutes);
 
 // passport config
 passport.use(new LocalStrategy(User.authenticate()));

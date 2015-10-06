@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 //////////////////
-// user       //
+// user        //
 ////////////////
 
 var userSchema = new Schema ({
@@ -40,7 +40,7 @@ var bevItemSchema = new Schema ({
 var foodMenuSchema = new Schema ({
 	hasDietRestrictions: Boolean,
 	dietRestrictions: String,
-	items: [foodMenuItemSchema],
+	items: [foodItemSchema],
 
 });
 
@@ -60,22 +60,8 @@ var menuSchema = new Schema ({
 });
 
 
-var eventOwner = new Schema ({
-	owner: [userSchema]
-});
-
-var eventSchema = new Schema ({
-
-});
-
-
-var itemSchema = new Schema ({
-	name: String,
-	type: String
-});
-
 var eventSchema = ({
-	owner: [eventOwner],
+	owner: [userSchema],
 	location: String,
 	date: Date,
 	duration: Number, //hrs
@@ -90,19 +76,20 @@ var eventSchema = ({
 	completionReport: String
 });
 
-var userSchema = new Schema({
-    username: String,
-    password: String
-});
 
 userSchema.plugin(passportLocalMongoose);
 
-var Item = mongoose.model("items", itemSchema);
+var Event = mongoose.model("events", eventSchema);
 var User = mongoose.model("users", userSchema);
 
 
 
 module.exports = {
-	Item: Item,
-	User: User
-}
+	Event: Event,
+	User: User,
+	foodItemSchema: foodItemSchema,
+	bevItemSchema: bevItemSchema,
+	foodMenuSchema: foodMenuSchema,
+	bevMenuSchema: bevMenuSchema,
+	menuSchema: menuSchema
+};
