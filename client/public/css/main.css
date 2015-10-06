@@ -29,6 +29,10 @@ input.form-control, option.form-control, select.form-control {
 	min-width: 8rem;
 }
 
+.bigFont {
+	font-size: 2rem;
+}
+
 
 /*-------------------*/
 /*  alert styles   */

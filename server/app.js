@@ -6,7 +6,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var swig = require('swig');
 var mongoose = require('mongoose');
 var http = require("http");
 var passport = require('passport');
@@ -56,10 +55,9 @@ app.use(require('express-session')({
     saveUninitialized: false
 }));
 app.use(express.static(path.join(__dirname, '../client/public')));
-
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 
 
