@@ -27,7 +27,6 @@ app.controller("registerController", ['$scope', '$location', 'authFactory', func
 	$scope.register = function(){
 		$scope.error = false;
 		$scope.disable = true;
-		console.log($scope.register.username, $scope.register.password);
 		authFactory.registerUser($scope.register.username, $scope.register.password)
 			.then(function(){
 				$location.path('/');

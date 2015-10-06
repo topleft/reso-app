@@ -5,7 +5,8 @@ var chaiHttp = require('chai-http');
 var server = require("../server/app");
 var Event = require("../server/database.js").Event;
 var should = chai.should();
-var testEvent = require('./test-seed.js');
+// var testEvent = require('./test-seed.js');
+// console.log("Test" , testEvent);
 chai.use(chaiHttp);
 
 
@@ -18,19 +19,19 @@ describe("Reso API", function(){
 
 	beforeEach(function(done){
 		id = "";
-		var newEvent = testEvent;
+		var newEvent = require('./test-seed.js');
 		console.log("Count ", count++);
 		id = newEvent._id;
 		newEvent.save(function(err){	
-		console.log("New Event ",newEvent);
-			done();
+		// console.log("New Event ",newEvent);
+			done(err);
 		});
 	});
 
-	afterEach(function(done){
-		Event.collection.drop();
-		done();
-	});
+	// afterEach(function(done){
+	// 	Event.collection.drop();
+	// 	done();
+	// });
 
 // it shoulds ------------------- //
 
@@ -51,10 +52,11 @@ describe("Reso API", function(){
 	});
 
 	it("should get one Event from DB", function(done){
+		console.log("Id ", id);
 		chai.request(server)
 			.get('/api/v1/events/'+id)
 			.end(function(err, res){
-				console.log(res.body)
+				console.log({res:res})
 				console.log(id)
 				res.should.have.status(200);
 				res.should.be.json;

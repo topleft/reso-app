@@ -12,7 +12,9 @@ function handleGet(res) {
 
 function handleGetOne(res, id) {
 	Event.findQ({_id: id})
-		.then(function(response){ res.json(response); })
+		.then(function(response){ 
+			console.log("Response ", response);
+			res.json(response); })
 		.catch(function(err){ res.json(err);})
 		.done();
 }

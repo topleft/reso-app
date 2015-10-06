@@ -1,0 +1,43 @@
+
+
+<!-- cut and pasted, needs refactor -->
+
+
+<div class="container">
+	<div class='row'>
+		<div class='col-md-4 col-md-offset-4'>
+			<h2>Register New User</h2>
+			<div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+			<form>
+				<br/>	
+				<div class='form'>
+					<div class='form-group'>
+						<label for="first-name-input-register">First Name</label>
+    				<input type="string" class="form-control" id="first-name-input-register" placeholder="First Name" ng-model="register.firstName" required>
+					</div>
+					<div class='form-group'>
+						<label for="last-name-input-register">Last Name</label>
+    				<input type="string" class="form-control" id="last-name-input-register" placeholder="Last Name" ng-model="register.lastName" required>
+					</div>
+					<div class='form-group'>
+						<label for="email-input-register">Email address</label>
+    				<input type="email" class="form-control" id="email-input-register" placeholder="Email" ng-model="register.email" required>
+					</div>
+					<div class='form-group'>
+						<label for="phone-input-register">Phone Number</label>
+    				<input type="tel" class="form-control" id="email-input-register" placeholder="Phone Number" ng-model="register.phoneNumber" required>
+					</div>
+					<div class='form-group'>
+						<label for="company-input-register">Company/Group</label>
+    				<input type="text" class="form-control" id="company-input-register" placeholder="Company/Group" ng-model="register.company">
+					</div>
+					<div class='form-group'>
+						<label for="password-input-register">Password</label>
+    				<input type="password" class="form-control" id="password-input-register" placeholder="Password" ng-model="register.password" required>
+					</div>
+					<button class='btn btn-primary' ng-click="register()">Register</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
