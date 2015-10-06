@@ -15,6 +15,10 @@ angular.module('routes').config(['$routeProvider', function($routeProvider){
 		templateUrl: '../auth/register.html',
 		controller: 'registerController',
 		access: {restricted: false}
+	})
+	.when('/events/create', {
+		templateUrl: '../views/events.html',
+		access: {restricted: true},
 	});
 
 }]);

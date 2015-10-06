@@ -3,7 +3,7 @@ var app = angular.module('myApp');
 
 app.controller("myController", ['$scope', function($scope){
 	
-		$scope.title = "The Whole Hog";
+		$scope.title = "Rezo - Book It!";
 	  $scope.action = {};
 	  $scope.action.bootstrap = "";
 		$scope.action.message = "";

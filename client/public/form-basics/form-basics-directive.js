@@ -8,8 +8,15 @@ angular.module('directives').
 			scope: {
 				basics: "="
 			},
-			templateUrl: "form-basics/form-basic.html",
+			templateUrl: "form-basics/form-basics.html",
 			controller: function($scope){
+				$scope.basics = {};
+				$scope.basics.date
+				$scope.basics.start
+				$scope.basics.end
+				$scope.basics.totalGuests
+				$scope.basics.hasMinors
+
 
 			}
 		}
