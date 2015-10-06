@@ -9,14 +9,14 @@ app.controller("loginController", ['$scope', '$location', 'authFactory', functio
 		authFactory.loginUser($scope.login.username, $scope.login.password)
 			.then(function(){
 				$location.path('/');
-				$scope.diabled = false;
+				$scope.disabled = false;
 				$scope.login = {};
 			})
 			.catch(function(){
 				$scope.error = true;
-					$scope.errorMessage = "Invalid user name and/or password.";
-					$scope.disabled= false;
-					$scope.login = {};
+				$scope.errorMessage = "Invalid user name and/or password.";
+				$scope.disabled= false;
+				$scope.login = {};
 			});
 
 	}
