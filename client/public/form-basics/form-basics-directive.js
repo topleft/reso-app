@@ -1,7 +1,7 @@
 
 
 
-angular.module('directives').
+angular.module('eventDirectives').
 	directive("formBasicsTemplate", [function(){
 		return {
 			restrict: 'E',
@@ -10,6 +10,7 @@ angular.module('directives').
 			},
 			templateUrl: "form-basics/form-basics.html",
 			controller: function($scope){
+				console.log("basics")
 				$scope.basics = {};
 				$scope.basics.date
 				$scope.basics.start

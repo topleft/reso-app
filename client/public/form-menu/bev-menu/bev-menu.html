@@ -1,23 +1,4 @@
-</br>
-</br>
-</br>
-<!-- <div class='container'>
-	<div class="row">
-		<div class="form-group col-md-offset-1">
-			<div class="col-md-3"><a href="">Pairing</a></div>
-			<div class="col-md-3"><a href="">Happy Hour</a></div>
-			<div class="col-md-3"><a href="">3 Courses</a></div>
-		</div>
-	</div>
-</div>
-</br>
-</br>
-</br> -->
-
-<bev-menu-template menu="menu"></bev-menu-template>
-<food-menu-template menu="menu"></food-menu-template>
-
-<!-- <div class="row">
+<div class="row">
 	<div class='container'>
 		<div class="col-md-4 col-md-offset-1">
 			
@@ -39,13 +20,13 @@
 					N/A
 				</label>
 			</form>
- -->
+
 
 <!-- Beverage Selection Menu -->
-<!-- 
+
 			<div ng-show="menu.toggle.bev === 'beer'" class="form-group">
 		    <label>Beers</label>
-				<select ng-model="menu.bev.beerSelect" class="form-control" type="text" placeholder="Select Beer" ng-change="addItem(menu.bev.beerSelect)">
+				<select ng-model="menu.bev.beerSelect" class="form-control" type="text" placeholder="Select Beer" ng-change="addBev(menu.bev.beerSelect)">
 					<option value="" disabled selected='selected'>Beer Selection</option>
 				  <option value="Amber">Amber</option>
 				  <option value="Pale">Pale</option>
@@ -54,7 +35,7 @@
 			</div>
 			<div ng-show="menu.toggle.bev === 'wine'" class="form-group">
 		    <label>Wines</label>
-				<select ng-model="menu.bev.wineSelect" class="form-control" type="text" placeholder="Select Wine" ng-change="addItem(menu.bev.wineSelect)">
+				<select ng-model="menu.bev.wineSelect" class="form-control" type="text" placeholder="Select Wine" ng-change="addBev(menu.bev.wineSelect)">
 					<option value="" disabled selected='selected'>Wine Selection</option>
 				  <option value="Chardonnay">Chardonnay</option>
 				  <option value="Sauv Blanc">Sauv Blanc</option>
@@ -64,7 +45,7 @@
 			</div>
 			<div ng-show="menu.toggle.bev === 'cocktails'" class="form-group">
 		    <label>Cocktails</label>
-				<select ng-model="menu.bev.cocktailSelect" class="form-control" type="text" placeholder="Select Cocktail" ng-change="addItem(menu.bev.cocktailSelect)">
+				<select ng-model="menu.bev.cocktailSelect" class="form-control" type="text" placeholder="Select Cocktail" ng-change="addBev(menu.bev.cocktailSelect)">
 					<option value="" disabled selected='selected'>Cocktail Selection</option>
 				  <option value="G&T">G&T</option>
 				  <option value="Tamarind Mescal">Tamarind Mescal</option>
@@ -73,33 +54,23 @@
 			</div>
 			<div ng-show="menu.toggle.bev === 'NA'" class="form-group">
 		    <label>Non Alcoholic</label>
-				<select ng-model="menu.bev.NASelect" class="form-control" type="text" placeholder="Select Beverage" ng-change="addItem(menu.bev.NASelect)">
+				<select ng-model="menu.bev.NASelect" class="form-control" type="text" placeholder="Select Beverage" ng-change="addBev(menu.bev.NASelect)">
 					<option value="" disabled selected='selected'>NA Selection</option>
-				  <option value="Amber">Sparkling Water</option>
-				  <option value="Pale">Kombucha</option>
-				  <option value="IPA">Coffee</option>
+				  <option value="Sparkling">Sparkling Water</option>
+				  <option value="Kombucha">Kombucha</option>
+				  <option value="Coffee">Coffee</option>
 				</select>
 			</div>
-		</div> -->
+		</div>
 
 
 		<!-- current beverage menu -->
-	<!-- 	<div class="col-md-5 col-md-offset-1">
+		<div class="col-md-5 col-md-offset-1">
 			<span class="bigFont">Current Menu</span>
 			<br/>
 			<br/>
-			<output-template collections="menu.bev.selected"></output-template>
+			<output-bev-template collections="menu.bev.selected"></output-bev-template>
 			</div>
 		</div>
 
 </div>
-
-	
-		<div class="row">
-			<div class="form-group">
-				<div class="col-md-3 col-md-offset-1"></div>
-				<div class="col-md-3"></div>
-				<div class="col-md-3"></div>
-			</div>
-		</div>
-		<div class="row"></div> -->

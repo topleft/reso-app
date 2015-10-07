@@ -1,0 +1,75 @@
+<div class="row">
+	<div class='container'>
+		<div class="col-md-4 col-md-offset-1">
+			
+			<form>
+				<label class="radio-inline">
+					<input ng-model="menu.toggle.food" type="radio" value="app" selected>
+					Apps
+				</label>
+				<label class="radio-inline">
+					<input ng-model="menu.toggle.food" type="radio" value="salad">
+					Salads
+				</label>
+				<label class="radio-inline">
+					<input ng-model="menu.toggle.food" type="radio" value="main">
+					Mains
+				</label>
+				<label class="radio-inline">
+					<input ng-model="menu.toggle.food" type="radio" value="dessert">
+					Desserts
+				</label>
+			</form>
+
+
+<!-- Beverage Selection Menu -->
+
+			<div ng-show="menu.toggle.food === 'app'" class="form-group">
+		    <label>Appetizers</label>
+				<select ng-model="menu.food.appSelect" class="form-control" type="text" ng-change="addFood(menu.food.appSelect)">
+					<option value="" disabled selected='selected'>App Selection</option>
+				  <option value="Bacon Dates">Bacon Dates</option>
+				  <option value="Cheese Plate">Cheese Plate</option>
+				  <option value="Onion Rings">Onion Rings</option>
+				</select>
+			</div>
+			<div ng-show="menu.toggle.food === 'salad'" class="form-group">
+		    <label>Salads</label>
+				<select ng-model="menu.food.saladSelect" class="form-control" type="text" ng-change="addFood(menu.food.saladSelect)">
+					<option value="" disabled selected='selected'>Salad Selection</option>
+				  <option value="Grapefruit Fennel">Grapefruit Fennel</option>
+				  <option value="Beet Goat Cheese">Beet Goat Cheese</option>
+				  <option value="Lime Queso Fresco">Lime Queso Fresco</option>
+				</select>
+			</div>
+			<div ng-show="menu.toggle.food === 'main'" class="form-group">
+		    <label>Main Courses</label>
+				<select ng-model="menu.food.mainSelect" class="form-control" type="text" ng-change="addFood(menu.food.mainSelect)">
+					<option value="" disabled selected='selected'>Main Selection</option>
+				  <option value="Steak">Steak</option>
+				  <option value="Squash Ravioli">Squash Ravioli</option>
+				  <option value="Carnitas Tacos">Carnitas Tacos</option>
+				</select>
+			</div>
+			<div ng-show="menu.toggle.food === 'dessert'" class="form-group">
+		    <label>Desserts</label>
+				<select ng-model="menu.food.dessertSelect" class="form-control" type="text" ng-change="addFood(menu.food.dessertSelect)">
+					<option value="" disabled selected='selected'>Dessert Selection</option>
+				  <option value="Bourbon Apricots">Bourbon Apricots</option>
+				  <option value="Chocolate Bark">Chocolate Bark</option>
+				  <option value="Creme Brulee">Creme Brulee</option>
+				</select>
+			</div>
+		</div>
+
+
+		<!-- current beverage menu -->
+		<div class="col-md-5 col-md-offset-1">
+			<span class="bigFont">Current Food Menu</span>
+			<br/>
+			<br/>
+			<output-food-template collections="menu.food.selected"></output-food-template>
+			</div>
+		</div>
+
+</div>
