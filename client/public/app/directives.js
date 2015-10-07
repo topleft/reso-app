@@ -1,7 +1,7 @@
 angular.module('directives', ['factories']);
 
-angular.module("eventDirectives", []);
-angular.module("adminDirectives", []);
+angular.module("eventDirectives", ['factories']);
+angular.module("adminDirectives", ['factories']);
 
 
 

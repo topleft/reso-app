@@ -1,0 +1,49 @@
+
+<div class='table output'>
+<div class='col-md-10 col-md-offset-0'>
+		<table class="table">
+			<tr>
+				<th>Item</th>
+				<th>Type</th>
+				<th>Serving Size</th>
+				<th>Menu Price</th>
+				<th>Cost Per Serving</th>
+				<th>Update</th>
+				<th>Remove</th>
+			</tr>
+			<tr ng-repeat="item in collections.bevs">
+				<td ng-show='update !== item._id'>{{ item.item }}</td>
+				<td ng-show='update !== item._id'>{{ item.type }}</td>
+				<td ng-show='update !== item._id'>{{ item.servingSize }}</td>
+				<td ng-show='update !== item._id'>{{ item.menuPrice }}</td>
+				<td ng-show='update !== item._id'>{{ item.costPerServing }}</td>
+				
+				<td ng-show='update === item._id'>
+					<input type="text" class="form-control" ng-model='item.item' placeholder="{{item.item}}">
+				</td>
+				<td ng-show='update === item._id'>
+					<input type="text" class="form-control" ng-model='item.type' placeholder="{{item.type}}">
+				</td>
+				<td ng-show='update === item._id'>
+					<input type="number" class="form-control" ng-model='item.servingSize' placeholder="{{item.servingSize}}">
+				</td>
+				<td ng-show='update === item._id'>
+					<input type="number" class="form-control" ng-model='item.menuPrice' placeholder="{{item.menuPrice}}">
+				</td>
+				<td ng-show='update === item._id'>
+					<input type="number" class="form-control" ng-model='item.costPerServing' placeholder="{{item.costPerSreving}}">
+				</td>
+				
+				
+				<td ng-show='update !== item._id'><button  class='btn btn-warning' ng-click='toggleUpdate(item._id)'>update</button></td>
+				
+				<td ng-show='update === item._id'><button type='submit' class='btn btn-info' ng-click='updateBevItem(item._id, item.item, item.type, item.servingSize, item.menuPrice, item.costPerServing)'>save</button></td>
+
+				<td ng-show="action.id !== item._id" ><button class='btn btn-danger' ng-click='doubleCheckDelete(item._id)'>delete</button></td>
+
+				<td ng-show="action.id === item._id" ><button class='btn btn-danger' ng-click='deleteItem(item._id)'>confirm</button></td>
+
+			</tr>
+		</table>
+	</div>
+</div>
