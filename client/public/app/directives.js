@@ -1,6 +1,8 @@
-var directives = angular.module('directives', ['factories']);
+angular.module('directives', ['factories']);
 
 angular.module("eventDirectives", []);
+angular.module("adminDirectives", []);
+
 
 
 

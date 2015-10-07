@@ -24,13 +24,7 @@ angular.module('eventDirectives').
 
 				$scope.menu.bev.selected = [];
 				$scope.menu.food.selected = [];
-				// $scope.menu.toggle.bev = "beer";
 
-
-				$scope.addItem = function(item){
-					console.log(item)
-					$scope.menu.bev.selected.push({item: item, quantity: 1});
-				}
 			}
 		};
 

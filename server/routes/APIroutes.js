@@ -4,7 +4,6 @@ var crud = require("../logic/crud.js");
 // var db = require('../database.js');
 
 router.get('/events', function(req, res, next) {
-	console.log("route get");
 	crud.handleGet(res);
 });
 
@@ -21,7 +20,6 @@ router.put('/events/:id/:name/:type', function(req, res, next) {
 });
 
 router.delete('/events/:id', function(req, res, next) {
-	console.log("in router delete");
 	crud.handleDelete(res, req.params.id);
 });
 

@@ -19,6 +19,10 @@ angular.module('routes').config(['$routeProvider', function($routeProvider){
 	.when('/events/create', {
 		templateUrl: '../views/events.html',
 		access: {restricted: true},
+	})
+	.when('/admin/create', {
+		templateUrl: '../views/admin-create.html',
+		access: {restricted: true}	
 	});
 
 }]);

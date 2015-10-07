@@ -26,15 +26,16 @@ var userSchema = new Schema ({
 var foodItemSchema = new Schema ({
 	item: String,
 	course: String,
-	costPerServing: Number,
-	totalNeeded: Number
+	menuPrice: Number,
+	costPerServing: Number
 });
 
 var bevItemSchema = new Schema ({
 	item: String,
+	type: String,
 	servingSize: Number,
-	costPerServing: Number,
-	totalNeeded: Number
+	menuPrice: Number,
+	costPerServing: Number
 });
 
 var foodMenuSchema = new Schema ({
@@ -79,16 +80,18 @@ var eventSchema = ({
 
 userSchema.plugin(passportLocalMongoose);
 
-var Event = mongoose.model("events", eventSchema);
 var User = mongoose.model("users", userSchema);
+var Event = mongoose.model("events", eventSchema);
+var FoodItem = mongoose.model("foodItems", foodItemSchema);
+var BevItem = mongoose.model("bevItems", bevItemSchema);
 
 
 
 module.exports = {
 	Event: Event,
 	User: User,
-	foodItemSchema: foodItemSchema,
-	bevItemSchema: bevItemSchema,
+	FoodItem: FoodItem,
+	BevItem: BevItem,
 	foodMenuSchema: foodMenuSchema,
 	bevMenuSchema: bevMenuSchema,
 	menuSchema: menuSchema
