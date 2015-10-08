@@ -12,9 +12,9 @@ angular.module("adminDirectives")
 
 
 				$scope.createFoodItem = function(){
-						adminFoodFactory.createFoodItem($scope.admin.food.item, $scope.admin.food.type, $scope.admin.food.servingSize, $scope.admin.food.menuPrice, $scope.admin.food.costPerServing)
+						adminFoodFactory.createFoodItem($scope.admin.food.item, $scope.admin.food.course, $scope.admin.food.menuPrice, $scope.admin.food.costPerServing)
 							.success(function(response){
-								$scope.collections.food.push(response);
+								$scope.collections.food.push(response[0]);
 							});
 
 				}

@@ -25,7 +25,7 @@ angular.module('adminDirectives')
 						$scope.action.id = id;
 					}
 
-					$scope.deleteItem = function (id){
+					$scope.deleteFoodItem = function (id){
 						console.log("delete pressed")
 						adminFoodFactory.deleteFoodItem(id)
 							.success(function(){frontEndDataFactory.findAndDelete(id, $scope.collections.food);

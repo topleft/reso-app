@@ -8,7 +8,6 @@ angular.module("adminDirectives")
 			},
 			templateUrl: "admin/admin-bev/admin-bev-form.html",
 			controller: function ($scope, adminBevFactory){
-				console.log("Bev Form Dir: ",$scope.collections.bevs );
 
 
 				$scope.createBevItem = function(){
@@ -16,6 +15,7 @@ angular.module("adminDirectives")
 							.success(function(response){
 								console.log(response)
 								$scope.collections.bevs.push(response[0]);
+								$scope.admin.bev = {};
 							});
 
 				}

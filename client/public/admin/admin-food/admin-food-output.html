@@ -21,7 +21,7 @@
 					<input type="text" class="form-control" ng-model='item.item' placeholder="{{item.item}}">
 				</td>
 				<td ng-show='update === item._id'>
-					<input type="text" class="form-control" ng-model='item.type' placeholder="{{item.course}}">
+					<input type="text" class="form-control" ng-model='item.course' placeholder="{{item.course}}">
 				</td>
 				<td ng-show='update === item._id'>
 					<input type="number" class="form-control" ng-model='item.menuPrice' placeholder="{{item.menuPrice}}">
@@ -37,7 +37,7 @@
 
 				<td ng-show="action.id !== item._id" ><button class='btn btn-danger' ng-click='doubleCheckDelete(item._id)'>delete</button></td>
 
-				<td ng-show="action.id === item._id" ><button class='btn btn-danger' ng-click='deleteItem(item._id)'>confirm</button></td>
+				<td ng-show="action.id === item._id" ><button class='btn btn-danger' ng-click='deleteFoodItem(item._id)'>confirm</button></td>
 
 			</tr>
 		</table>

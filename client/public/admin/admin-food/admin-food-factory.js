@@ -6,7 +6,7 @@ angular.module('factories')
 		var baseUrl = "/api/v1";
 
 		return {
-			createFoodItem: function(item, type, menuPrice, costPerServing) {
+			createFoodItem: function(item, course, menuPrice, costPerServing) {
 				return $http({
 						method: 'POST', 
 						url: baseUrl+'/food',
@@ -19,11 +19,11 @@ angular.module('factories')
 			getAllFoodItems: function() {
 				return $http.get(baseUrl+'/food');
 			},
-			updateFoodItem: function(id, item, type, menuPrice, costPerServing) {
+			updateFoodItem: function(id, item, course, menuPrice, costPerServing) {
 				return $http({
 						method: 'PUT',
 						url: baseUrl+'/food/'+id,
-						data: {item: item, type: type, menuPrice: menuPrice, costPerServing: costPerServing}
+						data: {item: item, course: course, menuPrice: menuPrice, costPerServing: costPerServing}
 					});
 			},
 			deleteFoodItem: function(id) {
