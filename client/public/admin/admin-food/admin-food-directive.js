@@ -19,7 +19,6 @@ angular.module("adminDirectives")
 
 				}
 
-				console.log("admin-food");
 			}
 		};
 }]);

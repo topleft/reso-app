@@ -13,14 +13,12 @@ angular.module("adminDirectives")
 				$scope.createBevItem = function(){
 						adminBevFactory.createBevItem($scope.admin.bev.item, $scope.admin.bev.type, $scope.admin.bev.servingSize, $scope.admin.bev.menuPrice, $scope.admin.bev.costPerServing)
 							.success(function(response){
-								console.log(response)
 								$scope.collections.bevs.push(response[0]);
 								$scope.admin.bev = {};
 							});
 
 				}
 
-				console.log("admin-bev");
 			}
 		};
 }]);

@@ -14,7 +14,6 @@ angular.module('adminDirectives')
 					function getAllFoodItems (){
 						adminFoodFactory.getAllFoodItems()
 							.success(function(response){
-								console.log(response);
 								$scope.collections.food = response;
 							});
 					}
@@ -26,7 +25,6 @@ angular.module('adminDirectives')
 					}
 
 					$scope.deleteFoodItem = function (id){
-						console.log("delete pressed")
 						adminFoodFactory.deleteFoodItem(id)
 							.success(function(){frontEndDataFactory.findAndDelete(id, $scope.collections.food);
 								alertFactory.add('success', "Success! Food Item DELETED from the database")
