@@ -52,6 +52,10 @@ input.form-control, option.form-control, select.form-control {
 /*  output styles   */
 /*-----------------*/
 
+.output {
+	width: 100%;
+}
+
 .table.table {
 	background-color: #555;
 	border-radius: 0.5rem;

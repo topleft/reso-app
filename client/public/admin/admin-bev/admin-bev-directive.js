@@ -8,16 +8,14 @@ angular.module("adminDirectives")
 			},
 			templateUrl: "admin/admin-bev/admin-bev-form.html",
 			controller: function ($scope, adminBevFactory){
-				$scope.admin = {};
-				$scope.admin.bev = {};
-				$scope.collections.bevs = [];
-
+				console.log("Bev Form Dir: ",$scope.collections.bevs );
 
 
 				$scope.createBevItem = function(){
 						adminBevFactory.createBevItem($scope.admin.bev.item, $scope.admin.bev.type, $scope.admin.bev.servingSize, $scope.admin.bev.menuPrice, $scope.admin.bev.costPerServing)
 							.success(function(response){
-								$scope.collections.bevs.push(response);
+								console.log(response)
+								$scope.collections.bevs.push(response[0]);
 							});
 
 				}

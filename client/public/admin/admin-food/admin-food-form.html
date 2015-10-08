@@ -1,0 +1,37 @@
+
+
+<div class="container">
+	<div class='row'>
+		<div class='col-md-4 col-md-offset-0'>
+			<div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+			<form>
+				<br/>	
+				<div class='form'>
+					<div class='form-group'>
+						<label>Food Item</label>
+    				<input type="text" class="form-control" placeholder="Food Item" ng-model="admin.food.item" required>
+					</div>
+					<div class='form-group'>
+						<label>Course</label>
+    				<option ng-model="admin.food.course" class="form-control" type="text">
+    					<select value="" selected disabled>Select Course</select>
+    					<select value="app">App</select>
+    					<select value="salad">Salad</select>
+    					<select value="main">Main</select>
+    					<select value="dessert">Dessert</select>
+    				</option>
+					</div>
+					<div class='form-group'>
+						<label>Menu Price</label>
+    				<input type="number" class="form-control"placeholder="Menu Price" ng-model="admin.food.menuPrice" required>
+					</div>
+					<div class='form-group'>
+						<label>Food Cost</label>
+    				<input type="number" class="form-control"placeholder="Cost" ng-model="admin.food.costPerServing" required>
+					</div>
+					<button class='btn btn-primary' ng-click="createFoodItem()" ng-disable='disable'>Create</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

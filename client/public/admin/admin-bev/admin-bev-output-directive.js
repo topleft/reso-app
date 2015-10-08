@@ -8,16 +8,8 @@ angular.module('adminDirectives')
 				},
 				templateUrl: 'admin/admin-bev/admin-bev-output.html',
 				controller: function($scope, adminBevFactory, frontEndDataFactory){
-					$scope.action = {};
+
 					
-					getAllBevItems();
-					function getAllBevItems (){
-						adminBevFactory.getAllBevItems()
-							.success(function(response){
-								console.log(response);
-								$scope.collections.bevs = response;
-							});
-					}
 
 					$scope.action.delete=false;
 
