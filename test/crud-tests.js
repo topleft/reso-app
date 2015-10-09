@@ -69,37 +69,40 @@ describe("Reso Bev API", function(){
 			});	
 	});
 
-	// it("should post bevItem to DB", function(done){
-	// 	chai.request(server)
-	// 		.post('/api/v1/bevs')
-	// 		.end(function(err, res){
-	// 			res.should.have.status(200);
-	// 			res.should.be.json;
-	// 			res.body.should.be.a('array');
-	// 			res.body[0].should.be.a('object');
-	// 			res.body[0].owner.firstName.should.equal('Jose');
-	// 			res.body[0].menu.type.should.be.a('string');
-	// 			res.body[0].totalBalance.should.be.a('number');
-	// 			res.body[0].hasMinors.should.equal(false);
-	// 			done();		
-	// 		});
-	// });
+	it("should post bevItem to DB", function(done){
+		chai.request(server)
+			.post('/api/v1/bevs')
+			.send({item: "Rochefort 10", type: 'beer', servingSize: 11.33, menuPrice: 8.00, costPerServing: 2.50, quantity: 3})
+			.end(function(err, res){
+				console.log(res.body)
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body.should.be.a('array');
+				res.body.length.should.equal(2);
+				res.body[0].should.be.a('object');
+				res.body[0].item.should.equal('Rochefort 10');
+				res.body[0].type.should.equal('beer');
+				res.body[0].menuPrice.should.be.a('number');
+				res.body[0].quantity.should.equal(3);
+				done();		
+			});
+	});
 
-	// it("should update an Event in the DB", function(done){
-	// 	chai.request(server)
-	// 		.put('/api/v1/bevs/'+id)
-	// 		.end(function(err, res){
-	// 			res.should.have.status(200);
-	// 			res.should.be.json;
-	// 			res.body.should.be.a('object');
-	// 			res.body.should.be.a('object');
-	// 			res.body.name.should.be.a('string');
-	// 			res.body.name.should.equal('new thing');
-	// 			res.body.type.should.be.a('string');
-	// 			res.body.type.should.equal('more stuff');
-	// 			done();
-	// 		});		
-	// });
+	it("should update an Event in the DB", function(done){
+		chai.request(server)
+			.put('/api/v1/bevs/'+id)
+			.send({item: "London Pride", type: 'beer', servingSize: 16, menuPrice: 5.00, costPerServing: 1.33, quantity: 4})
+			.end(function(err, res){
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body.should.be.a('object');
+				res.body.item.should.equal('London Pride');
+				res.body.type.should.equal('beer');
+				res.body.menuPrice.should.equal(5);
+				res.body.quantity.should.equal(4);
+				done();
+			});		
+	});
 
 	it("should delete an Delete from DB", function(done){
 		chai.request(server)
