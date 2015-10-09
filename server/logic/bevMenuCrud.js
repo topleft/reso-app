@@ -1,13 +1,20 @@
+User = require("./../database.js").User;
 BevMenu = require("./../database.js").BevMenu;
 var mongoose = require('mongoose-q')(require('mongoose'), {spread:true});
 
 
-function handleGetBevMenu(res) {
-	BevMenu.findQ({})
-		.then(function(response){ res.json(response);})
-		.catch(function(err){ res.json(err);})
-		.done();
-}
+function handleGetBevMenu(res, userId) {
+	User.find({_id: userId})
+		.populate('bevMenus')
+		.exec(function(err, user) {
+			if (err) {
+				console.log(err, user);
+			}
+			else {
+				res.send(user.bevMenus);
+			}
+		});
+};
 
 function handleGetOneBev(res, menuId, bevId) {
 	BevMenu.findQ({_id: menuId}) // needs to find bevId within bev menu !!!not ready!!!
@@ -27,7 +34,7 @@ function handlePostBevMenu(res, bevMenu) {
 
 function handlePutBev(res, menuId, bevId, quantity) {
 	var query = {_id: id}; // needs to find bevId within menu to update !!!not ready!!!
-	var update = {quantity; quantity};
+	var update = {quantity: quantity};
 	var option = {new: true};
 	BevMenu.findOneAndUpdateQ(query, update, option)
 		.then(function(response){ res.json(response);})
@@ -37,7 +44,7 @@ function handlePutBev(res, menuId, bevId, quantity) {
 
 function handlePutBevMenu(res, menuId, bevId, quantity) {
 	var query = {_id: id}; // needs to find bevId within menu to update !!!not ready!!!
-	var update = {quantity; quantity};
+	var update = {quantity: quantity};
 	var option = {new: true};
 	BevMenu.findOneAndUpdateQ(query, update, option)
 		.then(function(response){ res.json(response);})

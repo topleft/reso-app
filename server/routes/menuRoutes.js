@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var crud = require("../logic/menuCrud.js");
+var crud = require("../logic/bevMenuCrud.js");
 
 router.get('menu/bevs', function(req, res, next) {
 	crud.handleGetBevs(res);

@@ -15,7 +15,7 @@ router.post('/food', function(req, res, next) {
 });
 
 router.put('/food/:id', function(req, res, next) {
-	crud.handlePutFood(res, req.params.id, req.body.item, req.body.course, req.body.menuPrice, req.body.costPerServing);
+	crud.handlePutFood(res, req.params.id, req.body.item, req.body.course, req.body.menuPrice, req.body.costPerServing, req.body.quantity);
 });
 
 router.delete('/food/:id', function(req, res, next) {

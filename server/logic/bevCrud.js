@@ -17,17 +17,17 @@ function handleGetOneBev(res, id) {
 		.done();
 }
 
-function handlePostBev(res, item, type, servingSize, menuPrice, costPerServing) {
-	newEvent = new BevItem({item: item, type: type, servingSize: servingSize, menuPrice: menuPrice, costPerServing: costPerServing});
+function handlePostBev(res, item, type, servingSize, menuPrice, costPerServing, quantity) {
+	newEvent = new BevItem({item: item, type: type, servingSize: servingSize, menuPrice: menuPrice, costPerServing: costPerServing, quantity: quantity});
 	newEvent.saveQ()
 		.then(function(response){ res.json(response);})
 		.catch(function(err){ res.json(err);})
 		.done();
 }
 
-function handlePutBev(res, id, item, type, servingSize, menuPrice, costPerServing) {
+function handlePutBev(res, id, item, type, servingSize, menuPrice, costPerServing, quantity) {
 	var query = {_id: id};
-	var update = {item: item, type: type, servingSize: servingSize, menuPrice: menuPrice, costPerServing: costPerServing};
+	var update = {item: item, type: type, servingSize: servingSize, menuPrice: menuPrice, costPerServing: costPerServing, quantity: quantity};
 	var option = {new: true};
 	BevItem.findOneAndUpdateQ(query, update, option)
 		.then(function(response){ res.json(response);})

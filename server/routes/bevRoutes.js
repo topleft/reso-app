@@ -11,7 +11,7 @@ router.get('/bevs/:id', function(req, res, next) {
 });
 
 router.post('/bevs', function(req, res, next) {
-	crud.handlePostBev(res, req.body.item, req.body.type, req.body.servingSize, req.body.menuPrice, req.body.costPerServing);
+	crud.handlePostBev(res, req.body.item, req.body.type, req.body.servingSize, req.body.menuPrice, req.body.costPerServing, req.body.quantity);
 });
 
 router.put('/bevs/:id', function(req, res, next) {

@@ -18,17 +18,17 @@ function handleGetOneFood(res, id) {
 		.done();
 }
 
-function handlePostFood(res, item, course, menuPrice, costPerServing) {
-	newEvent = new FoodItem({item: item, course: course, menuPrice: menuPrice, costPerServing: costPerServing});
+function handlePostFood(res, item, course, menuPrice, costPerServing, quantity) {
+	newEvent = new FoodItem({item: item, course: course, menuPrice: menuPrice, costPerServing: costPerServing, quantity: quantity});
 	newEvent.saveQ()
 		.then(function(response){ res.json(response);})
 		.catch(function(err){ res.json(err);})
 		.done();
 }
 
-function handlePutFood(res, id, item, course, menuPrice, costPerServing) {
+function handlePutFood(res, id, item, course, menuPrice, costPerServing, quantity) {
 	var query = {_id: id};
-	var update = {item: item, course: course, menuPrice: menuPrice, costPerServing: costPerServing};
+	var update = {item: item, course: course, menuPrice: menuPrice, costPerServing: costPerServing, quantity: quantity};
 	var option = {new: true};
 	FoodItem.findOneAndUpdateQ(query, update, option)
 		.then(function(response){ res.json(response);})
