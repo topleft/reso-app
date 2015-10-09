@@ -1,5 +1,5 @@
 angular.module('eventDirectives')
-	.directive('outputBevTemplate', [ 'crudFactory', 'frontEndDataFactory', 'alertFactory', function(crudFactory, frontEndDataFactory, alertFactory){
+	.directive('outputBevTemplate', [ 'menuBevFactory', 'frontEndDataFactory', 'alertFactory', function(crudFactory, frontEndDataFactory, alertFactory){
 			return {
 				restrict: 'E',
 				scope: {
@@ -7,43 +7,37 @@ angular.module('eventDirectives')
 					action: '='
 				},
 				templateUrl: 'output/output.html',
-				controller: function($scope, crudFactory, frontEndDataFactory){
-					// getAllItems();
-					// function getAllItems (){
-					// 	crudFactory.getAllItems()
-					// 		.success(function(response){
-					// 			$scope.collections.items = response;
-					// 		});
-					// }
+				controller: function($scope, menuBevFactory, frontEndDataFactory){
 
-					// $scope.action.delete=false;
+					// get current user items if menu has been stored
 
-					// $scope.doubleCheckDelete = function(id){
-					// 	$scope.action.id = id;
-					// }
+					$scope.action.delete=false;
 
-					// $scope.deleteItem = function (id){
-					// 	crudFactory.deleteItem(id)
-					// 		.success(function(){frontEndDataFactory.findAndDelete(id, $scope.collections.items);
-					// 			alertFactory.add('success', "Success! Item DELETED from the database")
-					// 			$scope.action.id = false;
-					// 		});
-					// };
+					$scope.doubleCheckDelete = function(id){
+						$scope.action.id = id;
+					};
+
+					$scope.deleteBevItem = function (menuId, bevId){
+						menuBevFactory.deleteItem(menuId, bevId)
+							.success(function(){frontEndDataFactory.findAndDelete(id, $scope.collections.items);
+								alertFactory.add('success', "Success! Item DELETED from the database")
+								$scope.action.id = false;
+							});
+					};
 
 
 
-					// $scope.toggleUpdate = function(id) {
-					// 	$scope.update = id;
+					$scope.toggleUpdate = function(bevId) {
+						$scope.update = id;
+					};
 
-					// };
-
-					// $scope.updateItem = function(id, name, type) {
-					// 	crudFactory.updateItem(id, name, type)
-					// 		.success(function(response){
-					// 			alertFactory.add('success', "Success! Item UPDATED in the database.");
-					// 			$scope.update = false;
-					// 		})
-					// };
+					$scope.updateItem = function(menuId, bevId, quantity) {
+						menuBevFactory.updateBevItem(menuId, bevId, quantity)
+							.success(function(response){
+								alertFactory.add('success', "Success! Item UPDATED in the database.");
+								$scope.update = false;
+							})
+					};
 				
 				}  
 			};

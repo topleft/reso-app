@@ -19,6 +19,7 @@ var APIroutes = require('./routes/APIroutes.js');
 var authRoutes = require('./routes/authRoutes.js');
 var bevRoutes = require('./routes/bevRoutes.js');
 var foodRoutes = require('./routes/foodRoutes.js');
+var menuRoutes = require('./routes/menuRoutes.js');
 
 
 // *** express instance *** //
@@ -71,6 +72,7 @@ app.use('/', routes);
 app.use('/api/v1/', APIroutes);
 app.use('/api/v1/', bevRoutes);
 app.use('/api/v1/', foodRoutes);
+app.use('/api/v1/', menuRoutes);
 app.use('/users/', authRoutes);
 
 // passport config

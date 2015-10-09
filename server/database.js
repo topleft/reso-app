@@ -27,7 +27,8 @@ var foodItemSchema = new Schema ({
 	item: String,
 	course: String,
 	menuPrice: Number,
-	costPerServing: Number
+	costPerServing: Number,
+	quantity: 0
 });
 
 var bevItemSchema = new Schema ({
@@ -35,64 +36,57 @@ var bevItemSchema = new Schema ({
 	type: String,
 	servingSize: Number,
 	menuPrice: Number,
-	costPerServing: Number
+	costPerServing: Number,
+	quantity: 0
 });
 
-var foodMenuSchema = new Schema ({
-	hasDietRestrictions: Boolean,
-	dietRestrictions: String,
-	items: [foodItemSchema],
-
-});
+// var foodMenuSchema = new Schema ({
+// 	items: [foodItemSchema]
+// });
 
 var bevMenuSchema = new Schema ({
-	serviceStyle: String, // selfserve or server
-	beer: [bevItemSchema],
-	wine: [bevItemSchema],
-	cocktail: [bevItemSchema],
-	NA: [bevItemSchema]
+	items: [bevItemsSchema]
 });
 
-var menuSchema = new Schema ({
-	serviceStyle: String, // self service, table, cocktail
-	type: String, //pairing, casual, courses
-	food: [foodMenuSchema],
-	bev: [bevMenuSchema]
-});
+// var menuSchema = new Schema ({
+// 	food: [foodMenuSchema],
+// 	bev: [bevMenuSchema]
+// });
 
 
-var eventSchema = ({
-	owner: [userSchema],
-	location: String,
-	date: Date,
-	duration: Number, //hrs
-	totalGuests: Number, 
-	hasMinors: Boolean,
-	menu: [menuSchema],
-	isConfirmed: Boolean, // down payment recieved
-	totalCost: Number,
-	totalPaid: Number,
-	ownerNotes: String,
-	prepNotes: String,
-	completionReport: String
-});
+// var eventSchema = ({
+// 	owner: [userSchema],
+// 	location: String,
+// 	date: Date,
+// 	duration: Number, //hrs
+// 	totalGuests: Number, 
+// 	hasMinors: Boolean,
+// 	// menu: [menuSchema],
+// 	isConfirmed: Boolean, // down payment recieved
+// 	totalCost: Number,
+// 	totalPaid: Number,
+// 	ownerNotes: String,
+// 	prepNotes: String,
+// 	completionReport: String
+// });
 
 
 userSchema.plugin(passportLocalMongoose);
 
 var User = mongoose.model("users", userSchema);
-var Event = mongoose.model("events", eventSchema);
+// var Event = mongoose.model("events", eventSchema);
 var FoodItem = mongoose.model("foodItems", foodItemSchema);
 var BevItem = mongoose.model("bevItems", bevItemSchema);
-
-
+// var FoodMenu = mongoose.model("foodMenus", foodMenuSchema);
+var BevMenu = mongoose.model("bevMenus", bevMenuSchema);
+// var Menu = mongoose.model("menus", menuSchema)
 
 module.exports = {
-	Event: Event,
+	// Event: Event,
 	User: User,
 	FoodItem: FoodItem,
 	BevItem: BevItem,
-	foodMenuSchema: foodMenuSchema,
-	bevMenuSchema: bevMenuSchema,
-	menuSchema: menuSchema
+	// FoodMenu: FoodMenu,
+	BevMenu: BevMenu,
+	// Menu: Menu
 };
