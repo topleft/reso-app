@@ -5,15 +5,16 @@ var chaiHttp = require('chai-http');
 var server = require("../server/app");
 var db = require("../server/database.js");
 var should = chai.should();
+var mongoose = require('mongoose-q')(require('mongoose'));
 // var testEvent = require('./test-seed.js');
 chai.use(chaiHttp);
-
-
-// 
+ 
 
 //////////////////////////
+/////////////////////////
 //    bevItem         //
-////////////////////////
+///////////////////////
+//////////////////////
 
 describe("Reso Bev API", function(){
 	db.BevItem.collection.drop();
@@ -74,21 +75,18 @@ describe("Reso Bev API", function(){
 			.post('/api/v1/bevs')
 			.send({item: "Rochefort 10", type: 'beer', servingSize: 11.33, menuPrice: 8.00, costPerServing: 2.50, quantity: 3})
 			.end(function(err, res){
-				console.log(res.body)
 				res.should.have.status(200);
 				res.should.be.json;
-				res.body.should.be.a('array');
-				res.body.length.should.equal(2);
-				res.body[0].should.be.a('object');
-				res.body[0].item.should.equal('Rochefort 10');
-				res.body[0].type.should.equal('beer');
-				res.body[0].menuPrice.should.be.a('number');
-				res.body[0].quantity.should.equal(3);
+				res.body.should.be.a('object');
+				res.body.item.should.equal('Rochefort 10');
+				res.body.type.should.equal('beer');
+				res.body.menuPrice.should.be.a('number');
+				res.body.quantity.should.equal(3);
 				done();		
 			});
 	});
 
-	it("should update an Event in the DB", function(done){
+	it("should update an bevItem in the DB", function(done){
 		chai.request(server)
 			.put('/api/v1/bevs/'+id)
 			.send({item: "London Pride", type: 'beer', servingSize: 16, menuPrice: 5.00, costPerServing: 1.33, quantity: 4})
@@ -104,7 +102,7 @@ describe("Reso Bev API", function(){
 			});		
 	});
 
-	it("should delete an Delete from DB", function(done){
+	it("should delete an bevItem from DB", function(done){
 		chai.request(server)
 			.delete('/api/v1/bevs/'+id)
 			.end(function(err, res){
@@ -132,7 +130,12 @@ describe("Reso FoodItem API", function(){
 
 	beforeEach(function(done){
 		id = "";
-		var newFoodItem = new db.FoodItem ({item: "Steak", course: "main", menuPrice: 18, costPerServing: 5, quantity: 5});
+		var newFoodItem = new db.FoodItem ({
+			item: "Steak", 
+			course: "main", 
+			menuPrice: 18, 
+			costPerServing: 5, 
+			quantity: 5});
 		id = newFoodItem._id;
 		newFoodItem.save(function(err){	
 			done(err);
@@ -187,7 +190,6 @@ describe("Reso FoodItem API", function(){
 			.put('/api/v1/food/'+id)
 			.send({item: "Greens", course: "salad", menuPrice: 8, costPerServing: 2, quantity: 4})
 			.end(function(err, res){
-				console.log(res.body);
 				res.should.have.status(200);
 				res.should.be.json;
 				res.body.should.be.a('object');
@@ -200,7 +202,7 @@ describe("Reso FoodItem API", function(){
 			});		
 	});
 
-	it("should delete an Event from DB", function(done){
+	it("should delete an foodItem from DB", function(done){
 		chai.request(server)
 			.delete('/api/v1/food/'+id)
 			.end(function(err, res){
@@ -208,7 +210,6 @@ describe("Reso FoodItem API", function(){
 				res.should.be.json;
 				res.body.should.be.a('object');
 				res.body.message.should.equal("FoodItem Deleted");
-				// done();
 			});
 
 		chai.request(server)
@@ -225,9 +226,239 @@ describe("Reso FoodItem API", function(){
 });
 
 
+/////////////////////////////
+////////////////////////////
+//    Menu            /////
+//////////////////////////
+/////////////////////////
+
+describe("Reso Event Menu API", function(){
+	db.FoodItem.collection.drop();
+	var bevItemId = "";
+	var foodItemId = "";
+	var bevMenuId = "";
+	var foodMenuId = "";
+	var menuId = "";
+	var eventId = "";
+	var UserId = "";
+
+
+	beforeEach(function(done){
+		id = "";
+
+		var newBevItem = new db.BevItem({
+			item: "London Pride", 
+			type: 'beer', 
+			servingSize: 20, 
+			menuPrice: 6.00, 
+			costPerServing: 1.33, 
+			quantity: 5	
+		});
+		bevItemId = newBevItem._id;
+		newBevItem.save();
+
+		var newFoodItem = new db.FoodItem ({
+			item: "Steak", 
+			course: "main", 
+			menuPrice: 18, 
+			costPerServing: 5, 
+			quantity: 5
+		});
+		foodItemid = newFoodItem._id;
+		newFoodItem.save();
+
+
+		var newBevMenu = new db.BevMenu ({
+			items: [newBevItem._id]
+		});
+		bevMenuid = newBevMenu._id;
+		newBevMenu.save();
+
+		var newFoodMenu = new db.FoodMenu ({
+			items: [newFoodItem._id] 
+		});
+		foodMenuid = newFoodMenu._id;
+		newFoodMenu.save();
+
+		var newMenu = new db.Menu ({
+			food: newFoodMenu._id ,
+			bevs: newBevMenu._id
+		});
+		menuid = newMenu._id;
+		newMenu.save();
+
+
+		var newEvent = new db.Event ({
+			location: "The Shed",
+			date: null,
+			duration: 4, //hrs
+			totalGuests: 10, 
+			hasMinors: false,
+			menu: newMenu._id,
+			isConfirmed: false, 
+			totalCost: 0,
+			totalPaid: 0,
+			ownerNotes: null,
+			prepNotes: null,
+			completionReport: null
+		});
+		eventId = newEvent._id
+		newEvent.save();
+
+
+		var newUser = new db.User ({
+			username: 'test@test.com',
+			password: 'test',
+			firstName: 'John',
+			lastName: 'Coltrane',
+			phoneNumber: 5555555555,
+			company: 'Blue Note',
+			events: newEvent._id,
+			hasEventBooked: false,
+			hasBookingPending: 0,
+			totalEventsBooked: 0,
+			totalBalance: 0,
+			totalPaid: 0
+		});
+		userId = newUser._id;
+		newUser.save();
+
+		done();	
+	});
+
+	afterEach(function(done){
+		db.BevItem.collection.drop();
+		db.FoodItem.collection.drop();
+		db.BevMenu.collection.drop();
+		db.FoodMenu.collection.drop();
+		db.Menu.collection.drop();
+		db.Event.collection.drop();
+		db.User.collection.drop();
+		done();
+	});
+
+// it shoulds ------------------- //
+
+	it("should get event object", function(done){
+		chai.request(server)
+			.get('/api/v1/events/' + eventId)
+			.end(function(err, res){
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body[0].should.be.a('object');
+				res.body[0].location.should.be.a('string');
+				res.body[0].totalCost.should.be.a('number');
+				done();
+			});
+	});
+
+	it("should get User's event object", function(done){
+
+		chai.request(server)
+			.get('/api/v1/menu/' + userId)
+			.end(function(err, res){
+				// console.log("MENU: ",res.body)
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body.should.be.a('object');
+				res.body.should.have.property('food');
+				res.body.should.have.property('bevs');
+				// res.body.food.should.be.a('array');
+				// res.body.bevs.should.be.a('array');
+				done();
+			});
+	});
+
+	// it("should get menu with populated bev menu", function(done){
+	// 	chai.request(server)
+	// 		.get('/api/v1/menu/' + userId)
+	// 		.end(function(err, res){
+	// 			res.should.have.status(200);
+	// 			res.should.be.json;
+	// 			res.body.should.be.a('object');
+	// 			res.body.bev.should.be.a('array');
+	// 			res.body.bev[0].should.be.a('object');
+	// 			res.body.bev[0].should.have.property('item');
+	// 			res.body.bev[0].should.have.property('type');
+	// 			res.body.bev[0].should.have.property('menuPrice');
+	// 			res.body.bev[0].should.have.property('quantity');
+	// 			res.body.bev[0].should.have.property('costPerServing');
+	// 			res.body.bev[0].menuPrice.should.be.a('number');
+	// 			res.body.bev[0].costPerServing.should.be.a('number');
+	// 			res.body.bev[0].quantity.should.be.a('number');
+	// 			done();
+	// 		});	
+	// });
+
+	
+	// it("should get menu with populated food menu", function(done){
+	// 	chai.request(server)
+	// 		.get('/api/v1/menu/' + userId)
+	// 		.end(function(err, res){
+	// 			res.should.have.status(200);
+	// 			res.should.be.json;
+	// 			res.body.should.be.a('object');
+	// 			res.body.food.should.be.a('array');
+	// 			res.body.food[0].should.be.a('object');
+	// 			res.body.food[0].should.have.property('item');
+	// 			res.body.food[0].should.have.property('course');
+	// 			res.body.food[0].should.have.property('menuPrice');
+	// 			res.body.food[0].should.have.property('quantity');
+	// 			res.body.food[0].should.have.property('costPerServing');
+	// 			res.body.food[0].menuPrice.should.be.a('number');
+	// 			res.body.food[0].costPerServing.should.be.a('number');
+	// 			res.body.food[0].quantity.should.be.a('number');
+	// 			done();
+	// 		});	
+	// });
+
+	// it("should update a Food Item in the DB", function(done){
+	// 	chai.request(server)
+	// 		.post('/api/v1/menu/'+id)
+	// 		.send({item: "Greens", course: "salad", menuPrice: 8, costPerServing: 2, quantity: 4})
+	// 		.end(function(err, res){
+	// 			console.log(res.body);
+	// 			res.should.have.status(200);
+	// 			res.should.be.json;
+	// 			res.body.should.be.a('object');
+	// 			res.body.item.should.equal('Greens');
+	// 			res.body.course.should.be.a('string');
+	// 			res.body.menuPrice.should.equal(8);
+	// 			res.body.costPerServing.should.equal(2);
+	// 			res.body.quantity.should.equal(4);
+	// 			done();
+	// 		});		
+	// });
+
+	// it("should delete an Event from DB", function(done){
+	// 	chai.request(server)
+	// 		.delete('/api/v1/food/'+id)
+	// 		.end(function(err, res){
+	// 			res.should.have.status(200);
+	// 			res.should.be.json;
+	// 			res.body.should.be.a('object');
+	// 			res.body.message.should.equal("FoodItem Deleted");
+	// 		});
+
+	// 	chai.request(server)
+	// 		.get('/api/v1/food')
+	// 		.end(function(err, res){
+	// 			res.should.have.status(200);
+	// 			res.should.be.json;
+	// 			res.body.should.be.a('array');
+	// 			res.body.length.should.equal(0);
+	// 			done();
+	// 		});
+	// });
+
+// close describe
+});
+
+///////////////////////////
 //////////////////////////
 //    Event            //
 ////////////////////////
+///////////////////////
 
 // describe("Reso Event API", function(){
 // 	db.Event.collection.drop();
@@ -327,4 +558,130 @@ describe("Reso FoodItem API", function(){
 // 	});
 
 // //close describe
+// });
+
+
+/////////////////////////////
+////////////////////////////
+//    User         ////
+//////////////////////////
+/////////////////////////
+
+// describe("Reso User API", function(){
+// 	db.User.collection.drop();
+// 	var id = "";
+
+
+// 	beforeEach(function(done){
+// 		id = "";
+
+
+// 		var newUser = new db.User ({
+// 			username: 'test@test.com',
+// 			password: 'test',
+// 			firstName: 'John',
+// 			lastName: 'Coltrane',
+// 			phoneNumber: 5555555555,
+// 			company: 'Blue Note',
+// 			events: [],
+// 			hasEventBooked: false,
+// 			hasBookingPending: 0,
+// 			totalEventsBooked: 0,
+// 			totalBalance: 0,
+// 			totalPaid: 0
+// 		});
+// 		newUser.save();
+// 			done();
+// 	});
+
+// 	afterEach(function(done){
+// 		db.User.collection.drop();
+// 		done();
+// 	});
+
+// // it shoulds ------------------- //
+
+// 	it("should get all Users from DB", function(done){
+// 		chai.request(server)
+// 			.get('/api/v1/users')
+// 			.end(function(err, res){
+// 				res.should.have.status(200);
+// 				res.should.be.json;
+// 				res.body.should.be.a('array');
+// 				res.body[0].should.be.a('object');
+// 				res.body[0].username.should.equal('test@test.com');
+// 				res.body[0].password.should.equal('test');
+// 				res.body[0].firstName.should.be.a('John');
+// 				res.body[0].lastName.should.be.a('Coltrane');
+// 				res.body[0].phoneNumber.should.equal(5555555555);
+// 				res.body[0].company.should.equal('Blue Note');
+// 				res.body[0].hasEventBooked.should.equal(false);
+// 				res.body[0].totalBalance.should.equal(0);
+// 				res.body[0].totalPaid.should.equal(0);
+// 				done();
+// 			});
+// 	});
+
+	// it("should get one Food Item from DB", function(done){
+	// 	chai.request(server)
+	// 		.get('/api/v1/users/'+id)
+	// 		.end(function(err, res){
+	// 			res.should.have.status(200);
+	// 			res.should.be.json;
+	// 			res.body.should.be.a('array');
+	// 			res.body[0].should.be.a('object');
+	// 			res.body[0].username.should.equal('test@test.com');
+	// 			res.body[0].password.should.equal('test');
+	// 			res.body[0].firstName.should.be.a('John');
+	// 			res.body[0].lastName.should.be.a('Coltrane');
+	// 			res.body[0].phoneNumber.should.equal(5555555555);
+	// 			res.body[0].company.should.equal('Blue Note');
+	// 			res.body[0].hasEventBooked.should.equal(false);
+	// 			res.body[0].totalBalance.should.equal(0);
+	// 			res.body[0].totalPaid.should.equal(0);
+	// 			done();
+	// 		});	
+	// });
+
+	
+	// it("should update a Food Item in the DB", function(done){
+
+	// 	chai.request(server)
+	// 		.put('/api/v1/food/'+id)
+	// 		.send({item: "Greens", course: "salad", menuPrice: 8, costPerServing: 2, quantity: 4})
+	// 		.end(function(err, res){
+	// 			console.log(res.body);
+	// 			res.should.have.status(200);
+	// 			res.should.be.json;
+	// 			res.body.should.be.a('object');
+	// 			res.body.item.should.equal('Greens');
+	// 			res.body.course.should.be.a('string');
+	// 			res.body.menuPrice.should.equal(8);
+	// 			res.body.costPerServing.should.equal(2);
+	// 			res.body.quantity.should.equal(4);
+	// 			done();
+	// 		});		
+	// });
+
+	// it("should delete an Event from DB", function(done){
+	// 	chai.request(server)
+	// 		.delete('/api/v1/food/'+id)
+	// 		.end(function(err, res){
+	// 			res.should.have.status(200);
+	// 			res.should.be.json;
+	// 			res.body.should.be.a('object');
+	// 			res.body.message.should.equal("FoodItem Deleted");
+	// 		});
+
+	// 	chai.request(server)
+	// 		.get('/api/v1/food')
+	// 		.end(function(err, res){
+	// 			res.should.have.status(200);
+	// 			res.should.be.json;
+	// 			res.body.should.be.a('array');
+	// 			res.body.length.should.equal(0);
+	// 			done();
+	// 		});
+	// });
+// close describe
 // });

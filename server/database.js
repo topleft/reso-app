@@ -9,10 +9,6 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var userSchema = new Schema ({
 	username: String,
 	password: String,
-	details: {type: Schema.Types.ObjectId, ref: 'userDetails' }
-});
-
-var userDetailsSchema = new Schema ({
 	firstName: String,
 	lastName: String,
 	phoneNumber: Number,
@@ -24,6 +20,8 @@ var userDetailsSchema = new Schema ({
 	totalBalance: Number,
 	totalPaid: Number
 });
+
+
 
 //////////////////
 // event       //
@@ -47,11 +45,11 @@ var bevItemSchema = new Schema ({
 });
 
 var foodMenuSchema = new Schema ({
-	items: {type: Schema.Types.ObjectId, ref: 'foodItems'}
+	items: [{type: Schema.Types.ObjectId, ref: 'foodItems'}]
 });
 
 var bevMenuSchema = new Schema ({
-	items: {type: Schema.Types.ObjectId, ref: 'bevItems'}
+	items: [{type: Schema.Types.ObjectId, ref: 'bevItems'}]
 });
 
 var menuSchema = new Schema ({
@@ -61,14 +59,14 @@ var menuSchema = new Schema ({
 
 
 var eventSchema = ({
-	owner: {type: Schema.Types.ObjectId, ref: 'users'},
+	// owner: {type: Schema.Types.ObjectId, ref: 'users'},
 	location: String,
 	date: Date,
 	duration: Number, //hrs
 	totalGuests: Number, 
 	hasMinors: Boolean,
-	menu: {type: Schema.Types.ObjectId},
-	isConfirmed: Boolean || false, // down payment recieved
+	menu: {type: Schema.Types.ObjectId, ref:"menus"},
+	isConfirmed: Boolean,
 	totalCost: Number,
 	totalPaid: Number,
 	ownerNotes: String,
@@ -80,7 +78,6 @@ var eventSchema = ({
 userSchema.plugin(passportLocalMongoose);
 
 var User = mongoose.model("users", userSchema);
-var UserDetails = mongoose.model("userDetails", userDetailsSchema);
 var Event = mongoose.model("events", eventSchema);
 var FoodItem = mongoose.model("foodItems", foodItemSchema);
 var BevItem = mongoose.model("bevItems", bevItemSchema);
@@ -89,11 +86,11 @@ var BevMenu = mongoose.model("bevMenus", bevMenuSchema);
 var Menu = mongoose.model("menus", menuSchema)
 
 module.exports = {
-	// Event: Event,
+	Event: Event,
 	User: User,
 	FoodItem: FoodItem,
 	BevItem: BevItem,
-	// FoodMenu: FoodMenu,
+	FoodMenu: FoodMenu,
 	BevMenu: BevMenu,
-	// Menu: Menu
+	Menu: Menu
 };

@@ -1,7 +1,7 @@
 
 
 angular.module('factories').factory('authFactory', [ '$http','$q', function($http, $q) {
-			var user = null;
+		var user = null;
 
 		return {
 			isLoggedIn: function(){

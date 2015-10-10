@@ -1,6 +1,6 @@
 
 <div>
-  <div nav-template ng-model="action"></div>
+  <nav-template ng-model="action"></nav-template>
 </div>
 
 <div class="container">
@@ -12,12 +12,12 @@
 				<br/>	
 				<div class='form'>
 					<div class='form-group'>
-						<label for="email-input-register">Email address</label>
-    				<input type="email" class="form-control" id="email-input-login" placeholder="Email" ng-model="login.email" required>
+						<label >Email address</label>
+    				<input type="email" class="form-control" placeholder="Email" ng-model="login.username" required>
 					</div>
 					<div class='form-group'>
-						<label for="password-input-login">Password</label>
-    				<input type="password" class="form-control" id="password-input-login" placeholder="Password" ng-model="login.password" required>
+						<label >Password</label>
+    				<input type="password" class="form-control" placeholder="Password" ng-model="login.password" required>
 					</div>
 					<button class='btn btn-primary' ng-click="login()" ng-disable='disable'>Login</button>
 				</div>

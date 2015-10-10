@@ -1,14 +1,52 @@
-BevMenu = require("./../database.js").BevMenu;
+db = require("./../database.js");
 var mongoose = require('mongoose-q')(require('mongoose'), {spread:true});
 
-////// needs almost all refactoring
+// function deepPopulate(){
+// 	return populatedObj
+// }
 
-function handleGetMenus(res) {
-	Menu.findQ({})
-		.then(function(response){ res.json(response);})
-		.catch(function(err){ res.json(err);})
-		.done();
-}
+
+function handleGetEventMenu(res, userId) {
+	console.log(userId);
+	db.User.find({_id: userId})
+	.populate('events')
+		.exec(function(err, user){ 
+				if(err){
+					res.json(err);
+				}
+				else {
+					console.log('USER: ', user);
+					db.Event.populate(
+						user[0], 
+						{path: 'events.menu', model: db.Menu}, 
+    				function(err, userNext){
+							if(err){
+								console.log("ERROR: ",err);	
+								res.json(err);
+							}
+							else {
+								console.log('EVENT in CRUD: ', userNext.events.menu);
+								db.Menu.populate(
+								user[0], 
+								{path: 'events.menu.bevs', model: db.BevMenu}, 
+		    				function(err, lastUser){
+									if(err){
+										console.log("ERROR: ",err);	
+										res.json(err);
+									}
+									else {
+										console.log('MENU in CRUD: ', lastUser.events.menu.bevs);
+										res.json(lastUser.events.menu.bevs);
+										
+									}
+							
+								})
+							}
+						})
+				}
+		});
+	}
+
 
 function handleGetOneMenu(res, menuId) {
 	Menu.findQ({_id: menuId}) // needs to find Id within  menu !!!not ready!!!
@@ -55,10 +93,10 @@ function handleDelete(res, menuId, Id) {
 }
 
 module.exports = {
-	handleGetMenu: handleGetMenu,
-	handleGetOne: handleGetOne,
-	handlePostMenu: handlePostMenu,
-	handlePut: handlePut,
-	handlePutMenu: handlePutMenu,
-	handleDelete: handleDelete
+	handleGetEventMenu: handleGetEventMenu
+	// handleGetOne: handleGetOne,
+	// handlePostMenu: handlePostMenu,
+	// handlePut: handlePut,
+	// handlePutMenu: handlePutMenu,
+	// handleDelete: handleDelete
 };

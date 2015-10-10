@@ -1,6 +1,23 @@
 var express = require('express');
 var router = express.Router();
-var crud = require("../logic/bevMenuCrud.js");
+var crud = require("../logic/menuCrud.js");
+var db = require("../database.js")
+var mongoose = require('mongoose-q')(require('mongoose'), {spread:true});
+
+
+router.get('/menu/:userId', function(req, res, next) {
+	crud.handleGetEventMenu(res, req.params.userId);
+	// db.User.find({_id: userId})
+	// .populate('events')
+	// 	.exec(function(err, user){ 
+	// 			if(err){
+	// 				res.json(err);
+	// 			}
+	// 			else {
+	// 				res.json(user.events);
+	// 			}
+	// 	});
+});
 
 router.get('menu/bevs', function(req, res, next) {
 	crud.handleGetBevs(res);
