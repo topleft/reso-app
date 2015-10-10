@@ -6,8 +6,9 @@ angular.module('eventDirectives')
 					collections: '=',
 					action: '='
 				},
-				templateUrl: 'output-food/output-food.html',
+				templateUrl: '/form-menu/output-food/output-food.html',
 				controller: function($scope, crudFactory, frontEndDataFactory){
+					console.log("output food");
 					// getAllItems();
 					// function getAllItems (){
 					// 	crudFactory.getAllItems()

@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
+var deepPopulate = require("mongoose-deep-populate")(mongoose);
 
 //////////////////
 // user        //
@@ -74,7 +75,7 @@ var eventSchema = ({
 	completionReport: String
 });
 
-
+userSchema.plugin(deepPopulate);
 userSchema.plugin(passportLocalMongoose);
 
 var User = mongoose.model("users", userSchema);

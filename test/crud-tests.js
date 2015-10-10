@@ -352,7 +352,7 @@ describe("Reso Event Menu API", function(){
 			});
 	});
 
-	it("should get User's event object", function(done){
+	it("should get User's menu object", function(done){
 
 		chai.request(server)
 			.get('/api/v1/menu/' + userId)
@@ -363,72 +363,72 @@ describe("Reso Event Menu API", function(){
 				res.body.should.be.a('object');
 				res.body.should.have.property('food');
 				res.body.should.have.property('bevs');
-				// res.body.food.should.be.a('array');
-				// res.body.bevs.should.be.a('array');
+				res.body.food.items.should.be.a('array');
+				res.body.bevs.items.should.be.a('array');
 				done();
 			});
 	});
 
-	// it("should get menu with populated bev menu", function(done){
-	// 	chai.request(server)
-	// 		.get('/api/v1/menu/' + userId)
-	// 		.end(function(err, res){
-	// 			res.should.have.status(200);
-	// 			res.should.be.json;
-	// 			res.body.should.be.a('object');
-	// 			res.body.bev.should.be.a('array');
-	// 			res.body.bev[0].should.be.a('object');
-	// 			res.body.bev[0].should.have.property('item');
-	// 			res.body.bev[0].should.have.property('type');
-	// 			res.body.bev[0].should.have.property('menuPrice');
-	// 			res.body.bev[0].should.have.property('quantity');
-	// 			res.body.bev[0].should.have.property('costPerServing');
-	// 			res.body.bev[0].menuPrice.should.be.a('number');
-	// 			res.body.bev[0].costPerServing.should.be.a('number');
-	// 			res.body.bev[0].quantity.should.be.a('number');
-	// 			done();
-	// 		});	
-	// });
+	it("should get menu with populated bev menu", function(done){
+		chai.request(server)
+			.get('/api/v1/menu/' + userId)
+			.end(function(err, res){
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body.should.be.a('object');
+				res.body.bevs.items.should.be.a('array');
+				res.body.bevs.items[0].should.be.a('object');
+				res.body.bevs.items[0].should.have.property('item');
+				res.body.bevs.items[0].should.have.property('type');
+				res.body.bevs.items[0].should.have.property('menuPrice');
+				res.body.bevs.items[0].should.have.property('quantity');
+				res.body.bevs.items[0].should.have.property('costPerServing');
+				res.body.bevs.items[0].menuPrice.should.be.a('number');
+				res.body.bevs.items[0].costPerServing.should.be.a('number');
+				res.body.bevs.items[0].quantity.should.be.a('number');
+				done();
+			});	
+	});
 
 	
-	// it("should get menu with populated food menu", function(done){
-	// 	chai.request(server)
-	// 		.get('/api/v1/menu/' + userId)
-	// 		.end(function(err, res){
-	// 			res.should.have.status(200);
-	// 			res.should.be.json;
-	// 			res.body.should.be.a('object');
-	// 			res.body.food.should.be.a('array');
-	// 			res.body.food[0].should.be.a('object');
-	// 			res.body.food[0].should.have.property('item');
-	// 			res.body.food[0].should.have.property('course');
-	// 			res.body.food[0].should.have.property('menuPrice');
-	// 			res.body.food[0].should.have.property('quantity');
-	// 			res.body.food[0].should.have.property('costPerServing');
-	// 			res.body.food[0].menuPrice.should.be.a('number');
-	// 			res.body.food[0].costPerServing.should.be.a('number');
-	// 			res.body.food[0].quantity.should.be.a('number');
-	// 			done();
-	// 		});	
-	// });
+	it("should get menu with populated food menu", function(done){
+		chai.request(server)
+			.get('/api/v1/menu/' + userId)
+			.end(function(err, res){
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body.should.be.a('object');
+				res.body.food.items.should.be.a('array');
+				res.body.food.items[0].should.be.a('object');
+				res.body.food.items[0].should.have.property('item');
+				res.body.food.items[0].should.have.property('course');
+				res.body.food.items[0].should.have.property('menuPrice');
+				res.body.food.items[0].should.have.property('quantity');
+				res.body.food.items[0].should.have.property('costPerServing');
+				res.body.food.items[0].menuPrice.should.be.a('number');
+				res.body.food.items[0].costPerServing.should.be.a('number');
+				res.body.food.items[0].quantity.should.be.a('number');
+				done();
+			});	
+	});
 
-	// it("should update a Food Item in the DB", function(done){
-	// 	chai.request(server)
-	// 		.post('/api/v1/menu/'+id)
-	// 		.send({item: "Greens", course: "salad", menuPrice: 8, costPerServing: 2, quantity: 4})
-	// 		.end(function(err, res){
-	// 			console.log(res.body);
-	// 			res.should.have.status(200);
-	// 			res.should.be.json;
-	// 			res.body.should.be.a('object');
-	// 			res.body.item.should.equal('Greens');
-	// 			res.body.course.should.be.a('string');
-	// 			res.body.menuPrice.should.equal(8);
-	// 			res.body.costPerServing.should.equal(2);
-	// 			res.body.quantity.should.equal(4);
-	// 			done();
-	// 		});		
-	// });
+	it("should update a Food Item in the DB", function(done){
+		chai.request(server)
+			.post('/api/v1/menu/'+id)
+			.send({item: "Greens", course: "salad", menuPrice: 8, costPerServing: 2, quantity: 4})
+			.end(function(err, res){
+				console.log(res.body);
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body.should.be.a('object');
+				res.body.item.should.equal('Greens');
+				res.body.course.should.be.a('string');
+				res.body.menuPrice.should.equal(8);
+				res.body.costPerServing.should.equal(2);
+				res.body.quantity.should.equal(4);
+				done();
+			});		
+	});
 
 	// it("should delete an Event from DB", function(done){
 	// 	chai.request(server)

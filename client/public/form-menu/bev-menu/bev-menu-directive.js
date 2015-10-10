@@ -7,7 +7,7 @@ angular.module('directives').
 			},
 			templateUrl: "form-menu/bev-menu/bev-menu.html",
 			link: function(scope, element, attrs){
-				console.log("menu");
+				console.log("bev menu");
 
 
 				// $scope.menu.bev = {};

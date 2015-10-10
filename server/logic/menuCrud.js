@@ -5,6 +5,22 @@ var mongoose = require('mongoose-q')(require('mongoose'), {spread:true});
 // 	return populatedObj
 // }
 
+function handleGetEventMenuDeep(res, userId){
+	console.log("!@#$%^&*(")
+
+	db.User.find({_id: userId})
+		.deepPopulate('events.menu.bevs.items events.menu.food.items')
+			.exec(function(err, result){
+				if(err){
+					console.log("ERROR: ",err);	
+					res.json(err);
+				}
+				else {
+					console.log('Event in CRUD: ', result[0].events.menu.bevs.items);
+					res.json(result[0].events.menu);	
+				}
+			});
+}
 
 function handleGetEventMenu(res, userId) {
 	console.log(userId);
@@ -93,7 +109,8 @@ function handleDelete(res, menuId, Id) {
 }
 
 module.exports = {
-	handleGetEventMenu: handleGetEventMenu
+	handleGetEventMenu: handleGetEventMenu,
+	handleGetEventMenuDeep: handleGetEventMenuDeep
 	// handleGetOne: handleGetOne,
 	// handlePostMenu: handlePostMenu,
 	// handlePut: handlePut,

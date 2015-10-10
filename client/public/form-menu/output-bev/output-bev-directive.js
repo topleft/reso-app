@@ -1,24 +1,24 @@
 angular.module('eventDirectives')
-	.directive('outputBevTemplate', [ 'menuBevFactory', 'frontEndDataFactory', 'alertFactory', function(crudFactory, frontEndDataFactory, alertFactory){
+	.directive('outputBevTemplate', [ 'bevMenuFactory', 'frontEndDataFactory', 'alertFactory', function(bevMenuFactory, frontEndDataFactory, alertFactory){
 			return {
 				restrict: 'E',
 				scope: {
 					collections: '=',
 					action: '='
 				},
-				templateUrl: 'output/output.html',
-				controller: function($scope, menuBevFactory, frontEndDataFactory){
-
+				templateUrl: '/form-menu/output-bev/output-bev.html',
+				controller: function($scope, bevMenuFactory, frontEndDataFactory){
+					console.log('bev output directive')
 					// get current user items if menu has been stored
 
-					$scope.action.delete=false;
+					// $scope.action.delete = false;
 
 					$scope.doubleCheckDelete = function(id){
 						$scope.action.id = id;
 					};
 
 					$scope.deleteBevItem = function (menuId, bevId){
-						menuBevFactory.deleteItem(menuId, bevId)
+						bevMenuFactory.deleteBevItem(menuId, bevId)
 							.success(function(){frontEndDataFactory.findAndDelete(id, $scope.collections.items);
 								alertFactory.add('success', "Success! Item DELETED from the database")
 								$scope.action.id = false;
