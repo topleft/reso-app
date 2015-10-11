@@ -63,17 +63,29 @@ function handlePostFoodItem(res, foodMenuId, foodId){
 };
 
 // update quantity of single bev item to user.events.menu.bevs
-function handleUpdateBevItemQuantity(res, bevMenuId, bevId){
+function handleUpdateBevItemQuantity(res, bevMenuId, bevId, quantity){
 	db.BevMenu.findById(bevMenuId)
 		.deepPopulate('items')
-		.exec(function(menu){
-			console.log(menu.items);
+		.exec(function(err, menu){
+			db.BevItem.findByIdAndUpdate(bevId, {quantity: quantity}, {new: true})
+				.exec(function(err, item){
+					res.json(item);
+				})
 		})
 };
 
 // update quantity of single food item to user.events.menu.food
-function handleUpdateFoodItemQuantity(res, foodMenuId, foodId){
-
+function handleUpdateFoodItemQuantity(res, foodMenuId, foodId, quantity){
+	console.log("Id: ", foodId);
+	db.FoodMenu.findById(foodMenuId)
+		// .deepPopulate('items')
+		.exec(function(err, menu){
+			db.FoodItem.findByIdAndUpdate(foodId, {quantity: quantity}, {new: true})
+				.exec(function(err, item){
+					console.log("LOG LOG LOG: ", item);
+					res.json(item);
+				})
+		});
 };
 // remove single bev item from user.events.menu.bevs
 // remove single food item from user.events.menu.food
@@ -172,7 +184,8 @@ module.exports = {
 	handleGetEventMenuDeep: handleGetEventMenuDeep,
 	handlePostBevItem: handlePostBevItem,
 	handlePostFoodItem: handlePostFoodItem,
-	handleUpdateBevItemQuantity: handleUpdateBevItemQuantity
+	handleUpdateBevItemQuantity: handleUpdateBevItemQuantity,
+	handleUpdateFoodItemQuantity: handleUpdateFoodItemQuantity
 	// handleGetOne: handleGetOne,
 	// handlePostMenu: handlePostMenu,
 	// handlePut: handlePut,

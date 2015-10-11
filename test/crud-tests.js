@@ -276,7 +276,7 @@ describe("Reso Event Menu API", function(){
 			costPerServing: 5, 
 			quantity: 5
 		});
-		foodItemid = newFoodItem._id;
+		foodItemId = newFoodItem._id;
 		newFoodItem.save();
 
 		var newFoodItem2 = new db.FoodItem ({
@@ -456,7 +456,6 @@ describe("Reso Event Menu API", function(){
 			.post('/api/v1/menu/'+foodMenuId+"/food")
 			.send({id: foodItemId2})
 			.end(function(err, res){
-				console.log(res.body);
 				res.should.have.status(200);
 				res.should.be.json;
 				res.body.should.be.a('object');
@@ -471,17 +470,17 @@ describe("Reso Event Menu API", function(){
 
 	it("should update a Bev Item Quantity in user.events.menu.bevs", function(done){
 		chai.request(server)
-			.put('/api/v1/user/'+bevMenuId+'/bev')
-			.send({bevItemId:bevItemId2, quantity: 20})
+			.put('/api/v1/menu/'+bevMenuId+'/bev')
+			.send({bevId: bevItemId, quantity: 20})
 			.end(function(err, res){
 				res.should.have.status(200);
 				res.should.be.json;
 				res.body.should.be.a('object');
-				res.body.item.should.equal('Plum Creek');
+				res.body.item.should.equal('London Pride');
 				res.body.type.should.be.a('string');
-				res.body.sevingSize.should.equal(5);
-				res.body.menuPrice.should.equal(8);
-				res.body.costPerServing.should.equal(2.50);
+				res.body.servingSize.should.equal(20);
+				res.body.menuPrice.should.equal(6);
+				res.body.costPerServing.should.equal(1.33);
 				res.body.quantity.should.equal(20);
 				done();
 			});
@@ -489,17 +488,17 @@ describe("Reso Event Menu API", function(){
 
 	it("should update a Food Item Quantity food menu", function(done){
 		chai.request(server)
-			.put('/api/v1/menu/'+userId+"/food/" + foodItemId2)
-			.send({quantity: 10})
+			.put('/api/v1/menu/'+foodMenuId+"/food")
+			.send({foodId: foodItemId, quantity: 10})
 			.end(function(err, res){
-				// console.log(res.body);
+				console.log(res.body);
 				res.should.have.status(200);
 				res.should.be.json;
 				res.body.should.be.a('object');
-				res.body.item.should.equal('Greens');
+				res.body.item.should.equal('Steak');
 				res.body.course.should.be.a('string');
-				res.body.menuPrice.should.equal(8);
-				res.body.costPerServing.should.equal(2);
+				res.body.menuPrice.should.equal(18);
+				res.body.costPerServing.should.equal(5);
 				res.body.quantity.should.equal(10);
 				done();
 			});		

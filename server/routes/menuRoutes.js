@@ -19,13 +19,13 @@ router.post('/menu/:foodMenuId/food', function(req, res, next) {
 });
 
 // update bev item quantity
-router.put('/menu/:bevMenuId/bev/:bevItemId', function(req, res, next) {
-	crud.handleUpdateBevItemQuantity(res, req.params.BevMenuId, req.params.bevId, req.params.quantity);
+router.put('/menu/:bevMenuId/bev', function(req, res, next) {
+	crud.handleUpdateBevItemQuantity(res, req.params.bevMenuId, req.body.bevId, req.body.quantity);
 });
 
 // update food item quantity
-router.put('/menu/:foodMenuId/food/:foodItemId', function(req, res, next) {
-	crud.handleUpdateFoodItemQuantity(res, req.params.foodMenuId, req.params.foodId, req.params.quantity);
+router.put('/menu/:foodMenuId/food', function(req, res, next) {
+	crud.handleUpdateFoodItemQuantity(res, req.params.foodMenuId, req.body.foodId, req.body.quantity);
 });
 
 router.post('/menu/:userId/food', function(req, res, next) {
