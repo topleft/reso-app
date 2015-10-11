@@ -52,6 +52,11 @@ var bevMenuSchema = new Schema ({
 	items: [{type: Schema.Types.ObjectId, ref: 'bevItems'}]
 });
 
+// var foodMenuSchema = new Schema ({
+// 	items: [{item: {type: Schema.Types.ObjectId, ref: 'foodItems'}, 
+// 					 quantity: 0}]
+// });
+
 var menuSchema = new Schema ({
 	food: {type: Schema.Types.ObjectId, ref: 'foodMenus'},
 	bevs: {type: Schema.Types.ObjectId, ref: 'bevMenus'}
@@ -74,6 +79,10 @@ var eventSchema = ({
 	completionReport: String
 });
 
+bevMenuSchema.plugin(deepPopulate);
+foodMenuSchema.plugin(deepPopulate);
+menuSchema.plugin(deepPopulate);
+// eventSchema.plugin(deepPopulate);
 userSchema.plugin(deepPopulate);
 userSchema.plugin(passportLocalMongoose);
 

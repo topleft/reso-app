@@ -8,69 +8,119 @@ var mongoose = require('mongoose-q')(require('mongoose'), {spread:true});
 function handleGetEventMenuDeep(res, userId){
 
 	db.User.find({_id: userId})
-		.deepPopulate('events.menu.bevs.items events.menu.food.items')
+		.deepPopulate('events.menu.bevs.items events.menu.food.items.item')
 			.exec(function(err, result){
 				if(err){
 					console.log("ERROR: ",err);	
 					res.json(err);
 				}
 				else {
-					console.log('Event in CRUD: ', result[0].events.menu.bevs.items);
+					// console.log(result[0].events.menu.food.items);	
 					res.json(result[0].events.menu);	
 				}
 			});
 }
 
 // post single bev item to user.events.menu.bevs
+function handlePostBevItem(res, bevMenuId, bevId){
+	var newBevId = '';
+	//retreive bev item and create copy
+	db.BevItem.findByIdQ(bevId)
+		.then(function(item){
+		  item._id = mongoose.Types.ObjectId();
+		  newBevId = item._id;
+      item.isNew = true; //<--------------------IMPORTANT
+      return item.save();
+     })
+     .then(function(item){
+      db.BevMenu.findByIdAndUpdate(bevMenuId, {$push: {items: item}}, {new: true})
+      	.deepPopulate('items')
+      	.exec(function(err, bevMenu){
+      		res.json(bevMenu);
+      	})
+     	}).done();
+};
+
+
 // post single food item to user.events.menu.food
+function handlePostFoodItem(res, foodMenuId, foodId){
+	var newFoodId = '';
+	//retreive food item and create copy
+	db.FoodItem.findByIdQ(foodId)
+		.then(function(item){
+		  item._id = mongoose.Types.ObjectId();
+		  newFoodId = item._id;
+      item.isNew = true; //<--------------------IMPORTANT
+      return item.save();
+     })
+     .then(function(item){
+      db.FoodMenu.findByIdAndUpdate(foodMenuId, {$push: {items: item}}, {new: true})
+      	.deepPopulate('items')
+      	.exec(function(err, foodMenu){
+      		res.json(foodMenu);
+      	})
+     	}).done();
+};
+
 // update quantity of single bev item to user.events.menu.bevs
+function handleUpdateBevItemQuantity(res, bevMenuId, bevId){
+	db.BevMenu.findById(bevMenuId)
+		.deepPopulate('items')
+		.exec(function(menu){
+			console.log(menu.items);
+		})
+};
+
 // update quantity of single food item to user.events.menu.food
+function handleUpdateFoodItemQuantity(res, foodMenuId, foodId){
+
+};
 // remove single bev item from user.events.menu.bevs
 // remove single food item from user.events.menu.food
 // remove all bevs items from user.events.menu.bevs
 // remove all food items from user.events.menu.food
 
 
-function handleGetEventMenu(res, userId) {
-	console.log(userId);
-	db.User.find({_id: userId})
-	.populate('events')
-		.exec(function(err, user){ 
-				if(err){
-					res.json(err);
-				}
-				else {
-					console.log('USER: ', user);
-					db.Event.populate(
-						user[0], 
-						{path: 'events.menu', model: db.Menu}, 
-    				function(err, userNext){
-							if(err){
-								console.log("ERROR: ",err);	
-								res.json(err);
-							}
-							else {
-								console.log('EVENT in CRUD: ', userNext.events.menu);
-								db.Menu.populate(
-								user[0], 
-								{path: 'events.menu.bevs', model: db.BevMenu}, 
-		    				function(err, lastUser){
-									if(err){
-										console.log("ERROR: ",err);	
-										res.json(err);
-									}
-									else {
-										console.log('MENU in CRUD: ', lastUser.events.menu.bevs);
-										res.json(lastUser.events.menu.bevs);
+// function handleGetEventMenu(res, userId) {
+// 	console.log(userId);
+// 	db.User.find({_id: userId})
+// 	.populate('events')
+// 		.exec(function(err, user){ 
+// 				if(err){
+// 					res.json(err);
+// 				}
+// 				else {
+// 					console.log('USER: ', user);
+// 					db.Event.populate(
+// 						user[0], 
+// 						{path: 'events.menu', model: db.Menu}, 
+//     				function(err, userNext){
+// 							if(err){
+// 								console.log("ERROR: ",err);	
+// 								res.json(err);
+// 							}
+// 							else {
+// 								console.log('EVENT in CRUD: ', userNext.events.menu);
+// 								db.Menu.populate(
+// 								user[0], 
+// 								{path: 'events.menu.bevs', model: db.BevMenu}, 
+// 		    				function(err, lastUser){
+// 									if(err){
+// 										console.log("ERROR: ",err);	
+// 										res.json(err);
+// 									}
+// 									else {
+// 										console.log('MENU in CRUD: ', lastUser.events.menu.bevs);
+// 										res.json(lastUser.events.menu.bevs);
 										
-									}
+// 									}
 							
-								})
-							}
-						})
-				}
-		});
-	}
+// 								})
+// 							}
+// 						})
+// 				}
+// 		});
+// 	}
 
 
 function handleGetOneMenu(res, menuId) {
@@ -118,8 +168,11 @@ function handleDelete(res, menuId, Id) {
 }
 
 module.exports = {
-	handleGetEventMenu: handleGetEventMenu,
-	handleGetEventMenuDeep: handleGetEventMenuDeep
+	// handleGetEventMenu: handleGetEventMenu,
+	handleGetEventMenuDeep: handleGetEventMenuDeep,
+	handlePostBevItem: handlePostBevItem,
+	handlePostFoodItem: handlePostFoodItem,
+	handleUpdateBevItemQuantity: handleUpdateBevItemQuantity
 	// handleGetOne: handleGetOne,
 	// handlePostMenu: handlePostMenu,
 	// handlePut: handlePut,

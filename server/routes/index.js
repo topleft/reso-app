@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var crud = require("../logic/crud.js");
+// var crud = require("../logic/crud.js");
 var db = require('../database.js');
 // var user = require('../database.js').User;
 var passport = require('passport');

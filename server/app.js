@@ -20,7 +20,7 @@ var authRoutes = require('./routes/authRoutes.js');
 var bevRoutes = require('./routes/bevRoutes.js');
 var foodRoutes = require('./routes/foodRoutes.js');
 var menuRoutes = require('./routes/menuRoutes.js');
-vae userEventRoutes = require('./routes/userEventRoutes.js')
+var userEventRoutes = require('./routes/userEventRoutes.js');
 
 // *** express instance *** //
 var app = express();

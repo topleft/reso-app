@@ -8,6 +8,46 @@ router.get('/menu/:userId', function(req, res, next) {
 	crud.handleGetEventMenuDeep(res, req.params.userId);
 });
 
+// add bev item to menu
+router.post('/menu/:bevMenuId/bev', function(req, res, next) {
+	crud.handlePostBevItem(res, req.params.bevMenuId, req.body.id);
+});
+
+// add item food to menu 
+router.post('/menu/:foodMenuId/food', function(req, res, next) {
+	crud.handlePostFoodItem(res, req.params.foodMenuId, req.body.id);
+});
+
+// update bev item quantity
+router.put('/menu/:bevMenuId/bev/:bevItemId', function(req, res, next) {
+	crud.handleUpdateBevItemQuantity(res, req.params.BevMenuId, req.params.bevId, req.params.quantity);
+});
+
+// update food item quantity
+router.put('/menu/:foodMenuId/food/:foodItemId', function(req, res, next) {
+	crud.handleUpdateFoodItemQuantity(res, req.params.foodMenuId, req.params.foodId, req.params.quantity);
+});
+
+router.post('/menu/:userId/food', function(req, res, next) {
+	crud.handleGetEventMenuDeep(res, req.params.userId);
+});
+
+
+router.put('/menu/:userId/food/:foodItemId', function(req, res, next) {
+	crud.handleGetEventMenuDeep(res, req.params.userId);
+});
+
+
+router.delete('/menu/:userId/bev/:bevItemId', function(req, res, next) {
+	crud.handleGetEventMenuDeep(res, req.params.userId);
+});
+
+router.delete('/menu/:userId/food/:foodItemId', function(req, res, next) {
+	crud.handleGetEventMenuDeep(res, req.params.userId);
+});
+
+
+
 
 // post single bev item to user.events.menu.bevs
 // post single food item to user.events.menu.food

@@ -257,6 +257,18 @@ describe("Reso Event Menu API", function(){
 		bevItemId = newBevItem._id;
 		newBevItem.save();
 
+		var newBevItem2 = new db.BevItem({
+			item: "Plum Creek", 
+			type: 'wine', 
+			servingSize: 5, 
+			menuPrice: 8.00, 
+			costPerServing: 2.50, 
+			quantity: 5	
+		});
+		bevItemId2 = newBevItem2._id;
+		newBevItem2.save();
+
+		
 		var newFoodItem = new db.FoodItem ({
 			item: "Steak", 
 			course: "main", 
@@ -267,17 +279,26 @@ describe("Reso Event Menu API", function(){
 		foodItemid = newFoodItem._id;
 		newFoodItem.save();
 
+		var newFoodItem2 = new db.FoodItem ({
+			item: "Greens", 
+			course: "salad", 
+			menuPrice: 9, 
+			costPerServing: 2, 
+			quantity: 10
+		});
+		foodItemId2 = newFoodItem2._id;
+		newFoodItem2.save();
 
 		var newBevMenu = new db.BevMenu ({
 			items: [newBevItem._id]
 		});
-		bevMenuid = newBevMenu._id;
+		bevMenuId = newBevMenu._id;
 		newBevMenu.save();
 
 		var newFoodMenu = new db.FoodMenu ({
 			items: [newFoodItem._id] 
 		});
-		foodMenuid = newFoodMenu._id;
+		foodMenuId = newFoodMenu._id;
 		newFoodMenu.save();
 
 		var newMenu = new db.Menu ({
@@ -412,12 +433,66 @@ describe("Reso Event Menu API", function(){
 			});	
 	});
 
-	it("should add a Food Item to user.events.menu.food in the DB", function(done){
+	it("should add a Bev Item to Bev Menu", function(done){
 		chai.request(server)
-			.post('/api/v1/user/'+id)
-			.send({item: "Greens", course: "salad", menuPrice: 8, costPerServing: 2, quantity: 4})
+			.post('/api/v1/menu/'+bevMenuId+'/bev'	)
+			.send({id: bevItemId2})
+			.end(function(err, res){
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body.should.be.a('object');
+				res.body.items[1].item.should.equal('Plum Creek');
+				res.body.items[1].type.should.be.a('string');
+				res.body.items[1].servingSize.should.equal(5);
+				res.body.items[1].menuPrice.should.equal(8);
+				res.body.items[1].costPerServing.should.equal(2.50);
+				res.body.items[1].quantity.should.equal(5);
+				done();
+			});		
+	});
+
+	it("should add a Food Item to Food Menu", function(done){
+		chai.request(server)
+			.post('/api/v1/menu/'+foodMenuId+"/food")
+			.send({id: foodItemId2})
 			.end(function(err, res){
 				console.log(res.body);
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body.should.be.a('object');
+				res.body.items[1].item.should.equal('Greens');
+				res.body.items[1].course.should.be.a('string');
+				res.body.items[1].menuPrice.should.equal(9);
+				res.body.items[1].costPerServing.should.equal(2);
+				res.body.items[1].quantity.should.equal(10);
+				done();
+			});		
+	});
+
+	it("should update a Bev Item Quantity in user.events.menu.bevs", function(done){
+		chai.request(server)
+			.put('/api/v1/user/'+bevMenuId+'/bev')
+			.send({bevItemId:bevItemId2, quantity: 20})
+			.end(function(err, res){
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body.should.be.a('object');
+				res.body.item.should.equal('Plum Creek');
+				res.body.type.should.be.a('string');
+				res.body.sevingSize.should.equal(5);
+				res.body.menuPrice.should.equal(8);
+				res.body.costPerServing.should.equal(2.50);
+				res.body.quantity.should.equal(20);
+				done();
+			});
+		});	
+
+	it("should update a Food Item Quantity food menu", function(done){
+		chai.request(server)
+			.put('/api/v1/menu/'+userId+"/food/" + foodItemId2)
+			.send({quantity: 10})
+			.end(function(err, res){
+				// console.log(res.body);
 				res.should.have.status(200);
 				res.should.be.json;
 				res.body.should.be.a('object');
@@ -425,38 +500,35 @@ describe("Reso Event Menu API", function(){
 				res.body.course.should.be.a('string');
 				res.body.menuPrice.should.equal(8);
 				res.body.costPerServing.should.equal(2);
-				res.body.quantity.should.equal(4);
+				res.body.quantity.should.equal(10);
 				done();
 			});		
 	});
 
-	it("should add a Food Item to user.events.menu.bevs in the DB", function(done){
+
+
+
+	it("should delete a Bev Item from user.events.menu.bevs", function(done){
 		chai.request(server)
-			.post('/api/v1/user/'+id)
-			.send({item: "Greens", course: "salad", menuPrice: 8, costPerServing: 2, quantity: 4})
+			.delete('/api/v1/menu/'+userId +'/bev/'+ bevItemId2)
 			.end(function(err, res){
-				console.log(res.body);
 				res.should.have.status(200);
 				res.should.be.json;
 				res.body.should.be.a('object');
-				res.body.item.should.equal('Greens');
-				res.body.course.should.be.a('string');
-				res.body.menuPrice.should.equal(8);
-				res.body.costPerServing.should.equal(2);
-				res.body.quantity.should.equal(4);
-				done();
-			});		
-	});
+				res.body.message.should.equal("Bev Item Deleted from Menu");
+			});
+		});
 
-	// it("should delete an Event from DB", function(done){
-	// 	chai.request(server)
-	// 		.delete('/api/v1/food/'+id)
-	// 		.end(function(err, res){
-	// 			res.should.have.status(200);
-	// 			res.should.be.json;
-	// 			res.body.should.be.a('object');
-	// 			res.body.message.should.equal("FoodItem Deleted");
-	// 		});
+	it("should delete a Food Item from user.events.menu.bevs", function(done){
+		chai.request(server)
+			.delete('/api/v1/menu/'+userId +'/food/'+ bevItemId2)
+			.end(function(err, res){
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body.should.be.a('object');
+				res.body.message.should.equal("Food Item Deleted from Menu");
+			});
+		});
 
 	// 	chai.request(server)
 	// 		.get('/api/v1/food')
