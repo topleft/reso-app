@@ -509,36 +509,50 @@ describe("Reso Event Menu API", function(){
 
 	it("should delete a Bev Item from user.events.menu.bevs", function(done){
 		chai.request(server)
-			.delete('/api/v1/menu/'+userId +'/bev/'+ bevItemId2)
+			.delete('/api/v1/menu/'+ bevMenuId +'/bev')
+			.send({bevId: bevItemId})
 			.end(function(err, res){
 				res.should.have.status(200);
 				res.should.be.json;
 				res.body.should.be.a('object');
 				res.body.message.should.equal("Bev Item Deleted from Menu");
 			});
+
+		chai.request(server)
+			.get('/api/v1/menu/' + userId)
+			.end(function(err, res){	
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body.bevs.items.should.be.a('array');
+				res.body.bevs.items.length.should.equal(0);
+				done();
+			});
 		});
+
 
 	it("should delete a Food Item from user.events.menu.bevs", function(done){
 		chai.request(server)
-			.delete('/api/v1/menu/'+userId +'/food/'+ bevItemId2)
+			.delete('/api/v1/menu/'+ foodMenuId +'/food')
+			.send({foodId: foodItemId})
 			.end(function(err, res){
 				res.should.have.status(200);
 				res.should.be.json;
 				res.body.should.be.a('object');
 				res.body.message.should.equal("Food Item Deleted from Menu");
 			});
+		chai.request(server)
+			.get('/api/v1/menu/' + userId)
+			.end(function(err, res){
+				console.log("!!@!@@!@", res.body);	
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body.food.items.should.be.a('array');
+				res.body.food.items.length.should.equal(0);
+				done();
+			});
 		});
 
-	// 	chai.request(server)
-	// 		.get('/api/v1/food')
-	// 		.end(function(err, res){
-	// 			res.should.have.status(200);
-	// 			res.should.be.json;
-	// 			res.body.should.be.a('array');
-	// 			res.body.length.should.equal(0);
-	// 			done();
-	// 		});
-	// });
+
 
 // close describe
 });

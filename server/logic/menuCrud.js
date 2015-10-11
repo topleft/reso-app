@@ -76,19 +76,51 @@ function handleUpdateBevItemQuantity(res, bevMenuId, bevId, quantity){
 
 // update quantity of single food item to user.events.menu.food
 function handleUpdateFoodItemQuantity(res, foodMenuId, foodId, quantity){
-	console.log("Id: ", foodId);
 	db.FoodMenu.findById(foodMenuId)
 		// .deepPopulate('items')
 		.exec(function(err, menu){
 			db.FoodItem.findByIdAndUpdate(foodId, {quantity: quantity}, {new: true})
 				.exec(function(err, item){
-					console.log("LOG LOG LOG: ", item);
 					res.json(item);
-				})
+				});
 		});
-};
+}
+
 // remove single bev item from user.events.menu.bevs
+function handleDeleteBevItem(res, bevMenuId, bevId, quantity){
+	db.BevMenu.findById(bevMenuId)
+		// .deepPopulate('items')
+		.exec(function(err, menu){
+			db.BevItem.findByIdAndRemove(bevId)
+				.exec(function(err, item){
+					if (err){
+						console.log("Can't Delete Item");
+						res.json(err);
+					}
+					else {
+					res.json({message: "Bev Item Deleted from Menu"});
+					}
+				})
+		})
+};
+
 // remove single food item from user.events.menu.food
+function handleDeleteFoodItem(res, foodMenuId, foodId, quantity){
+	db.FoodMenu.findById(foodMenuId)
+		// .deepPopulate('items')
+		.exec(function(err, menu){
+			db.FoodItem.findByIdAndRemove(foodId)
+				.exec(function(err, item){
+					if (err){
+						console.log("Can't Delete Item");
+						res.json(err);
+					}
+					else {
+					res.json({message: "Food Item Deleted from Menu"});
+					}
+				})
+		})
+};
 // remove all bevs items from user.events.menu.bevs
 // remove all food items from user.events.menu.food
 
@@ -185,7 +217,9 @@ module.exports = {
 	handlePostBevItem: handlePostBevItem,
 	handlePostFoodItem: handlePostFoodItem,
 	handleUpdateBevItemQuantity: handleUpdateBevItemQuantity,
-	handleUpdateFoodItemQuantity: handleUpdateFoodItemQuantity
+	handleUpdateFoodItemQuantity: handleUpdateFoodItemQuantity,
+	handleDeleteBevItem: handleDeleteBevItem,
+	handleDeleteFoodItem: handleDeleteFoodItem
 	// handleGetOne: handleGetOne,
 	// handlePostMenu: handlePostMenu,
 	// handlePut: handlePut,

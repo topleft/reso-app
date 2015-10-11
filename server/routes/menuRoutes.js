@@ -28,22 +28,14 @@ router.put('/menu/:foodMenuId/food', function(req, res, next) {
 	crud.handleUpdateFoodItemQuantity(res, req.params.foodMenuId, req.body.foodId, req.body.quantity);
 });
 
-router.post('/menu/:userId/food', function(req, res, next) {
-	crud.handleGetEventMenuDeep(res, req.params.userId);
+// delete single bev item from menu
+router.delete('/menu/:bevMenuId/bev', function(req, res, next) {
+	crud.handleDeleteBevItem(res, req.params.bevMenuId, req.body.bevId, req.body.quantity);
 });
 
-
-router.put('/menu/:userId/food/:foodItemId', function(req, res, next) {
-	crud.handleGetEventMenuDeep(res, req.params.userId);
-});
-
-
-router.delete('/menu/:userId/bev/:bevItemId', function(req, res, next) {
-	crud.handleGetEventMenuDeep(res, req.params.userId);
-});
-
-router.delete('/menu/:userId/food/:foodItemId', function(req, res, next) {
-	crud.handleGetEventMenuDeep(res, req.params.userId);
+// delete single food item from menu
+router.delete('/menu/:foodMenuId/food', function(req, res, next) {
+	crud.handleDeleteFoodItem(res, req.params.foodMenuId, req.body.foodId, req.body.quantity);
 });
 
 
