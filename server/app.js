@@ -15,12 +15,12 @@ var User = require('./database').User;
 
 // *** routes *** //
 var routes = require('./routes/index.js');
-var APIroutes = require('./routes/APIroutes.js');
+var adminEventRoutes = require('./routes/adminEventroutes.js');
 var authRoutes = require('./routes/authRoutes.js');
 var bevRoutes = require('./routes/bevRoutes.js');
 var foodRoutes = require('./routes/foodRoutes.js');
 var menuRoutes = require('./routes/menuRoutes.js');
-
+vae userEventRoutes = require('./routes/userEventRoutes.js')
 
 // *** express instance *** //
 var app = express();
@@ -68,10 +68,11 @@ app.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../client/public/views/', 'layout.html'));
 });
 app.use('/', routes);
-app.use('/api/v1/', APIroutes);
+app.use('/api/v1/', adminEventRoutes);
 app.use('/api/v1/', bevRoutes);
 app.use('/api/v1/', foodRoutes);
 app.use('/api/v1/', menuRoutes);
+app.use('/api/v1/', userEventRoutes);
 app.use('/users/', authRoutes);
 
 // passport config

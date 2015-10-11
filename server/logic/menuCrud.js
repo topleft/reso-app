@@ -6,7 +6,6 @@ var mongoose = require('mongoose-q')(require('mongoose'), {spread:true});
 // }
 
 function handleGetEventMenuDeep(res, userId){
-	console.log("!@#$%^&*(")
 
 	db.User.find({_id: userId})
 		.deepPopulate('events.menu.bevs.items events.menu.food.items')
@@ -21,6 +20,16 @@ function handleGetEventMenuDeep(res, userId){
 				}
 			});
 }
+
+// post single bev item to user.events.menu.bevs
+// post single food item to user.events.menu.food
+// update quantity of single bev item to user.events.menu.bevs
+// update quantity of single food item to user.events.menu.food
+// remove single bev item from user.events.menu.bevs
+// remove single food item from user.events.menu.food
+// remove all bevs items from user.events.menu.bevs
+// remove all food items from user.events.menu.food
+
 
 function handleGetEventMenu(res, userId) {
 	console.log(userId);

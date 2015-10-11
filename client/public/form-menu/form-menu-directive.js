@@ -8,7 +8,7 @@ angular.module('eventDirectives').
 			templateUrl: "form-menu/form-menu.html",
 			controller: function($scope){
 				console.log("menu");
-
+				
 
 				$scope.menu = {};
 				$scope.menu.food = {};

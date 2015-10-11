@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var crud = require("../logic/bevMenuCrud.js");
 
+// get user profile
+// update user profile
+
 router.get('/users', function(req, res, next) {
 	crud.handleGetBevs(res);
 });

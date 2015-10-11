@@ -3,12 +3,25 @@ var router = express.Router();
 var crud = require("../logic/menuCrud.js");
 var mongoose = require('mongoose-q')(require('mongoose'), {spread:true});
 
-
+// get menu from user.events.menu
 router.get('/menu/:userId', function(req, res, next) {
 	crud.handleGetEventMenuDeep(res, req.params.userId);
 });
 
-router.get('menu/bevs', function(req, res, next) {
+
+// post single bev item to user.events.menu.bevs
+// post single food item to user.events.menu.food
+// update quantity of single bev item to user.events.menu.bevs
+// update quantity of single food item to user.events.menu.food
+// remove single bev item from user.events.menu.bevs
+// remove single food item from user.events.menu.food
+// remove all bevs items from user.events.menu.bevs
+// remove all food items from user.events.menu.food
+
+
+
+router.get('menu/bevs', function(req, res, next) {s
+
 	crud.handleGetBevs(res);
 });
 

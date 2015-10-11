@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var crud = require("../logic/crud.js");
+var crud = require("../logic/adminEventCrud.js");
 // var db = require('../database.js');
 
 router.get('/events', function(req, res, next) {

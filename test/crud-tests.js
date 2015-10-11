@@ -412,9 +412,27 @@ describe("Reso Event Menu API", function(){
 			});	
 	});
 
-	it("should update a Food Item in the DB", function(done){
+	it("should add a Food Item to user.events.menu.food in the DB", function(done){
 		chai.request(server)
-			.post('/api/v1/menu/'+id)
+			.post('/api/v1/user/'+id)
+			.send({item: "Greens", course: "salad", menuPrice: 8, costPerServing: 2, quantity: 4})
+			.end(function(err, res){
+				console.log(res.body);
+				res.should.have.status(200);
+				res.should.be.json;
+				res.body.should.be.a('object');
+				res.body.item.should.equal('Greens');
+				res.body.course.should.be.a('string');
+				res.body.menuPrice.should.equal(8);
+				res.body.costPerServing.should.equal(2);
+				res.body.quantity.should.equal(4);
+				done();
+			});		
+	});
+
+	it("should add a Food Item to user.events.menu.bevs in the DB", function(done){
+		chai.request(server)
+			.post('/api/v1/user/'+id)
 			.send({item: "Greens", course: "salad", menuPrice: 8, costPerServing: 2, quantity: 4})
 			.end(function(err, res){
 				console.log(res.body);
@@ -454,9 +472,23 @@ describe("Reso Event Menu API", function(){
 // close describe
 });
 
+
 ///////////////////////////
 //////////////////////////
-//    Event            //
+//   User Event        //
+////////////////////////
+///////////////////////
+
+///////////////////////////
+//////////////////////////
+//   User Profile      //
+////////////////////////
+///////////////////////
+
+
+///////////////////////////
+//////////////////////////
+//   Admin Event       //
 ////////////////////////
 ///////////////////////
 

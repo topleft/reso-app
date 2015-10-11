@@ -13,11 +13,10 @@ var userSchema = new Schema ({
 	firstName: String,
 	lastName: String,
 	phoneNumber: Number,
-	company: String || null,
+	company: String,
 	events: {type: Schema.Types.ObjectId, ref: 'events'},
 	hasEventBooked: Boolean,
 	hasBookingPending: Boolean,
-	totalEventsBooked: Number,
 	totalBalance: Number,
 	totalPaid: Number
 });
