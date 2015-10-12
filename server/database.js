@@ -65,26 +65,27 @@ var menuSchema = new Schema ({
 
 var eventSchema = ({
 	// owner: {type: Schema.Types.ObjectId, ref: 'users'},
-	location: String,
+	location: String || 'CommonWealth',
 	date: Date,
-	duration: Number, //hrs
+	start: Number,
+	end: Number,
 	totalGuests: Number, 
-	hasMinors: Boolean,
+	isSurprise: Boolean,
 	menu: {type: Schema.Types.ObjectId, ref:"menus"},
-	isConfirmed: Boolean,
-	totalCost: Number,
-	totalPaid: Number,
-	ownerNotes: String,
-	prepNotes: String,
-	completionReport: String
+	isConfirmed: Boolean || false,
+	totalCost: Number || 0,
+	totalPaid: Number || 0,
+	ownerNotes: String || "",
+	prepNotes: String || "",
+	completionReport: String || ""
 });
 
 bevMenuSchema.plugin(deepPopulate);
 foodMenuSchema.plugin(deepPopulate);
 menuSchema.plugin(deepPopulate);
-// eventSchema.plugin(deepPopulate);
 userSchema.plugin(deepPopulate);
 userSchema.plugin(passportLocalMongoose);
+// eventSchema.plugin(deepPopulate);
 
 var User = mongoose.model("users", userSchema);
 var Event = mongoose.model("events", eventSchema);

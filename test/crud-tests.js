@@ -244,7 +244,6 @@ describe("Reso Event Menu API", function(){
 
 
 	beforeEach(function(done){
-		id = "";
 
 		var newBevItem = new db.BevItem({
 			item: "London Pride", 
@@ -539,20 +538,17 @@ describe("Reso Event Menu API", function(){
 				res.should.be.json;
 				res.body.should.be.a('object');
 				res.body.message.should.equal("Food Item Deleted from Menu");
-			});
+		});
 		chai.request(server)
 			.get('/api/v1/menu/' + userId)
 			.end(function(err, res){
-				console.log("!!@!@@!@", res.body);	
 				res.should.have.status(200);
 				res.should.be.json;
 				res.body.food.items.should.be.a('array');
 				res.body.food.items.length.should.equal(0);
 				done();
-			});
 		});
-
-
+	});
 
 // close describe
 });
@@ -564,12 +560,65 @@ describe("Reso Event Menu API", function(){
 ////////////////////////
 ///////////////////////
 
+describe("Reso Event API", function(){
+ 	db.User.collection.drop();
+ 	db.Event.collection.drop();
+	var userId = "";
+
 ///////////////////////////
 //////////////////////////
 //   User Profile      //
 ////////////////////////
 ///////////////////////
 
+	beforeEach(function(done){
+		var newUser = new db.User ({
+			username: 'test@test.com',
+			password: 'test',
+			firstName: 'John',
+			lastName: 'Coltrane',
+			phoneNumber: 5555555555,
+			company: 'Blue Note',
+			events: null,
+			hasEventBooked: false,
+			hasBookingPending: 0,
+			totalEventsBooked: 0,
+			totalBalance: 0,
+			totalPaid: 0
+		});
+		userId = newUser._id;
+		newUser.save();
+		done();
+
+
+	});
+
+	afterEach (function(done){
+	 	db.User.collection.drop();
+	 	db.Event.collection.drop();
+
+		done();
+	});
+
+it('should create an event and add it to user instance', function(done){
+		chai.request(server)
+		.post('/api/v1/events/'+userId)
+		.send({
+			date: '02/24/2016',
+			start: 18,
+			end: 22,
+			totalGuests: 8, 
+			isSurprise: true
+		})
+		.end(function(err, res){
+			res.should.have.status(200);
+			res.should.be.json;
+			res.body.should.be.a('object');
+			res.body.events.should.be.a('string');
+			done();
+		});
+	});
+});
 
 ///////////////////////////
 //////////////////////////
