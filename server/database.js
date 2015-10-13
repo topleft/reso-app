@@ -32,7 +32,7 @@ var foodItemSchema = new Schema ({
 	course: String,
 	menuPrice: Number,
 	costPerServing: Number,
-	quantity: 0
+	quantity: Number || 0
 });
 
 var bevItemSchema = new Schema ({
@@ -41,8 +41,8 @@ var bevItemSchema = new Schema ({
 	servingSize: Number,
 	menuPrice: Number,
 	costPerServing: Number,
-	quantity: 0
-});
+	quantity: Number
+});	
 
 var foodMenuSchema = new Schema ({
 	items: [{type: Schema.Types.ObjectId, ref: 'foodItems'}]

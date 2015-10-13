@@ -78,20 +78,30 @@ function handleUpdateFoodItemQuantity(res, foodMenuId, foodId, quantity){
 }
 
 // remove single bev item from user.events.menu.bevs
-function handleDeleteBevItem(res, bevMenuId, bevId, quantity){
+function handleDeleteBevItem(res, bevMenuId, bevId){
+	console.log("PIGS: ", bevMenuId, bevId)
 	db.BevMenu.findById(bevMenuId)
 		.exec(function(err, menu){
-			db.BevItem.findByIdAndRemove(bevId)
-				.exec(function(err, item){
 					if (err){
 						console.log("Can't Delete Item");
 						res.json(err);
 					}
 					else {
-					res.json({message: "Bev Item Deleted from Menu"});
+						var bevs = menu.items
+						for(i=0; i< menu.items.length; i++) {
+							var bev = bevs[i]
+							console.log("WOTPTO: ", (bev+"") === bevId);
+							if ((bev+"")  === bevId){
+								menu.items.splice(i, 1);
+							}
+							db.BevMenu.findByIdAndUpdate(bevMenuId, {items: menu.items}, {new: true})
+							.exec(function(result){
+								res.json(result);
+							});
+						}
+						// res.json({message: "Bev Item Deleted from Menu"});
 					}
-				})
-		})
+		});
 };
 
 // remove single food item from user.events.menu.food

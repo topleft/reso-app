@@ -31,7 +31,7 @@ angular.module('eventDirectives').
 							$scope.basics.userId = result.user._id;
 							$scope.basics.eventId = result.user.events._id;
 							$scope.basics.menuId = result.user.events.menu._id;
-							$scope.basics.bevMenuId = result.user.events.menu.bev._id;
+							$scope.basics.bevMenuId = result.user.events.menu.bevs._id;
 							$scope.basics.foodMenuId = result.user.events.menu.food._id;
 						})
 						.error(function(err){

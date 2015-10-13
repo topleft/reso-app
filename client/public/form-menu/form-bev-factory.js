@@ -21,15 +21,19 @@ angular.module('factories')
 			getAllBevItems: function() {
 				return $http.get(baseUrl+'/bevs/menu');
 			},
-			updateBevItem: function(menuId, bevItemId, quantity) {
+			updateBevItem: function(menuId, bevId, quantity) {
 				return $http({
 						method: 'PUT',
-						url: baseUrl+'/bevs/menu/'+menuId+'/'+bevId,
-						data: {quantity: quantity}
+						url: baseUrl+'/bevs/menu/'+menuId,
+						data: {id: bevId, quantity: quantity}
 					});
 			},
 			deleteBevItem: function(menuId, bevId) {
-				return $http.delete(baseUrl+'/bevs/menu/'+menuId+'/'+bevId)
+				console.log(menuId, bevId)
+				return $http({
+						method: 'DELETE',
+						url: baseUrl+'/menu/'+menuId+"/bev/"+bevId, 
+						});
 			},
 			isValidBevItem: function(name, type, items){
 

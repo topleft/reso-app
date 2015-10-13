@@ -16,10 +16,10 @@ angular.module('directives').
 				scope.menu.toggle.bev = "beer";
 				scope.menu.bev.beerSelect;
 				scope.user = {};
-				scope.user.userId = ""; 
+				scope.user.userId; 
 				scope.user.eventId;
 				scope.user.menuId;
-				scope.user.bevMenuId = "";
+				scope.user.bevMenuId;
 				scope.user.foodMenuId;
 
 				formBasicsFactory.getPopulatedUser()

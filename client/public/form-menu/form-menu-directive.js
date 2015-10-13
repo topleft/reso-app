@@ -25,18 +25,19 @@ angular.module('eventDirectives').
 
 				formBasicsFactory.getPopulatedUser()
 				.success(function(user){
-					console.log("User", user)
 					$scope.menu.userId = user._id;
 					$scope.menu.eventId = user.events._id;
 					$scope.menu.menuId = user.events.menu._id;
 					$scope.menu.bevMenuId = user.events.menu.bevs._id;
 					$scope.menu.foodMenuId = user.events.menu.food._id;
+					$scope.menu.bev.selected = user.events.menu.bevs.items;
+					$scope.menu.food.selected = user.events.menu.food.items;
 				})
 				.catch(function(err){
-					console.log(err)
+					console.log("This user has no events yet!");
 				})
 
-				
+
 
 			}
 		};

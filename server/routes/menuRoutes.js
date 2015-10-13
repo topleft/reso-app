@@ -29,13 +29,14 @@ router.put('/menu/:foodMenuId/food', function(req, res, next) {
 });
 
 // delete single bev item from menu
-router.delete('/menu/:bevMenuId/bev', function(req, res, next) {
-	crud.handleDeleteBevItem(res, req.params.bevMenuId, req.body.bevId, req.body.quantity);
+router.delete('/menu/:bevMenuId/bev/:bevId', function(req, res, next) {
+	console.log(req.body.bevId)
+	crud.handleDeleteBevItem(res, req.params.bevMenuId, req.params.bevId);
 });
 
 // delete single food item from menu
 router.delete('/menu/:foodMenuId/food', function(req, res, next) {
-	crud.handleDeleteFoodItem(res, req.params.foodMenuId, req.body.foodId, req.body.quantity);
+	crud.handleDeleteFoodItem(res, req.params.foodMenuId, req.body.foodId);
 });
 
 
