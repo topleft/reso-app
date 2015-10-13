@@ -63,7 +63,7 @@ var menuSchema = new Schema ({
 });
 
 
-var eventSchema = ({
+var eventSchema = new Schema ({
 	// owner: {type: Schema.Types.ObjectId, ref: 'users'},
 	location: String || 'CommonWealth',
 	date: Date,
@@ -80,12 +80,12 @@ var eventSchema = ({
 	completionReport: String || ""
 });
 
+eventSchema.plugin(deepPopulate);
 bevMenuSchema.plugin(deepPopulate);
 foodMenuSchema.plugin(deepPopulate);
 menuSchema.plugin(deepPopulate);
 userSchema.plugin(deepPopulate);
 userSchema.plugin(passportLocalMongoose);
-// eventSchema.plugin(deepPopulate);
 
 var User = mongoose.model("users", userSchema);
 var Event = mongoose.model("events", eventSchema);
@@ -93,7 +93,7 @@ var FoodItem = mongoose.model("foodItems", foodItemSchema);
 var BevItem = mongoose.model("bevItems", bevItemSchema);
 var FoodMenu = mongoose.model("foodMenus", foodMenuSchema);
 var BevMenu = mongoose.model("bevMenus", bevMenuSchema);
-var Menu = mongoose.model("menus", menuSchema)
+var Menu = mongoose.model("menus", menuSchema);
 
 module.exports = {
 	Event: Event,

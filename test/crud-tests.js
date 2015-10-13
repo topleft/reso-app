@@ -490,7 +490,6 @@ describe("Reso Event Menu API", function(){
 			.put('/api/v1/menu/'+foodMenuId+"/food")
 			.send({foodId: foodItemId, quantity: 10})
 			.end(function(err, res){
-				console.log(res.body);
 				res.should.have.status(200);
 				res.should.be.json;
 				res.body.should.be.a('object');
@@ -565,11 +564,6 @@ describe("Reso Event API", function(){
  	db.Event.collection.drop();
 	var userId = "";
 
-///////////////////////////
-//////////////////////////
-//   User Profile      //
-////////////////////////
-///////////////////////
 
 	beforeEach(function(done){
 		var newUser = new db.User ({
@@ -600,10 +594,11 @@ describe("Reso Event API", function(){
 		done();
 	});
 
-it('should create an event and add it to user instance', function(done){
+it('should create an event', function(done){
 		chai.request(server)
-		.post('/api/v1/events/'+userId)
+		.post('/api/v1/events/create/test/test')
 		.send({
+			// userId: userId,
 			date: '02/24/2016',
 			start: 18,
 			end: 22,
@@ -611,14 +606,94 @@ it('should create an event and add it to user instance', function(done){
 			isSurprise: true
 		})
 		.end(function(err, res){
+			console.log("EVENT", res.body);
 			res.should.have.status(200);
 			res.should.be.json;
 			res.body.should.be.a('object');
-			res.body.events.should.be.a('string');
 			done();
 		});
 	});
+
+
+
+// it('should create an event and add it to user instance', function(done){
+// 		chai.request(server)
+// 		.post('/api/v1/events/create')
+// 		.send({
+// 			userId: userId,
+// 			date: '02/24/2016',
+// 			start: 18,
+// 			end: 22,
+// 			totalGuests: 8, 
+// 			isSurprise: true
+// 		})
+// 		.end(function(err, res){
+// 			console.log("USER WITH EVENT", res.body)
+// 			res.should.have.status(200);
+// 			res.should.be.json;
+// 			res.body.should.be.a('object');
+// 			res.body.events.should.be.a('string');
+// 			done();
+// 		});
+// 	});
+
 });
+
+///////////////////////////
+//////////////////////////
+//   User Profile      //
+////////////////////////
+///////////////////////
+
+// describe("Reso Event API", function(){
+//  	db.User.collection.drop();
+//  	db.Event.collection.drop();
+// 	var userId = "";
+
+
+// 	beforeEach(function(done){
+// 		var newUser = new db.User ({
+// 			username: 'test@test.com',
+// 			password: 'test',
+// 			firstName: 'John',
+// 			lastName: 'Coltrane',
+// 			phoneNumber: 5555555555,
+// 			company: 'Blue Note',
+// 			events: null,
+// 			hasEventBooked: false,
+// 			hasBookingPending: 0,
+// 			totalEventsBooked: 0,
+// 			totalBalance: 0,
+// 			totalPaid: 0
+// 		});
+// 		userId = newUser._id;
+// 		newUser.save();
+// 		done();
+
+
+// 	});
+
+// 	afterEach (function(done){
+// 	 	db.User.collection.drop();
+// 	 	db.Event.collection.drop();
+
+// 		done();
+// 	});
+
+// it('should etuen the username and _id', function(done){
+// 		chai.request(server)
+// 		.get('/api/v1/users/session')
+// 		.end(function(err, res){
+// 			res.should.have.status(200);
+// 			res.should.be.json;
+// 			res.body.should.be.a('object');
+// 			res.body.username.should.be.a('string');
+// 			done();
+// 		});
+// 	});
+// });
+
+
 
 ///////////////////////////
 //////////////////////////

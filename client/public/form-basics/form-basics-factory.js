@@ -6,11 +6,19 @@ angular.module('factories')
 
 			return {
 			// submit form info to create new event
-				createEvent: function(userId){
-					$http.post(baseUrl + '/events/' + userId)
+				createEvent: function(date, start, end, totalGuests, isSurprise){
+					return $http.post(baseUrl + '/events/create', 
+						{
+							date: date,
+							start: start,
+							end: end,
+							totalGuests: totalGuests, 
+							isSurprise: isSurprise
+						});
+				},
+				getPopulatedUser: function(){
+					return $http.get(baseUrl + '/user/populated');
 				}
-			}
 
-///////////!!!!!!!! need to remember how to submit info with $http
-
+			};
 	}]);

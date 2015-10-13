@@ -4,7 +4,7 @@ var mongoose = require('mongoose-q')(require('mongoose'), {spread:true});
 
 function handleGetEventMenuDeep(res, userId){
 	db.User.find({_id: userId})
-		.deepPopulate('events.menu.bevs.items events.menu.food.items.item')
+		.deepPopulate('events.menu.bevs.items events.menu.food.items')
 			.exec(function(err, result){
 				if(err){
 					console.log("ERROR: ",err);	
@@ -19,18 +19,14 @@ function handleGetEventMenuDeep(res, userId){
 // post single bev item to user.events.menu.bevs
 function handlePostBevItem(res, bevMenuId, bevId){
 	var newBevId = '';
+	console.log("in handlePostBev")
 	//retreive bev item and create copy
 	db.BevItem.findByIdQ(bevId)
-		.then(function(item){
-		  item._id = mongoose.Types.ObjectId();
-		  newBevId = item._id;
-      item.isNew = true; //<--------------------IMPORTANT
-      return item.save();
-     })
      .then(function(item){
       db.BevMenu.findByIdAndUpdate(bevMenuId, {$push: {items: item}}, {new: true})
       	.deepPopulate('items')
       	.exec(function(err, bevMenu){
+      		console.log(bevMenu);
       		res.json(bevMenu);
       	})
      	}).done();

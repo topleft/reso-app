@@ -9,7 +9,7 @@
 				<th>Remove</th>
 			</tr>
 			<tr ng-repeat="item in collections">
-				<td>{{ item.item }}</td>
+				<td>{{ item }}</td>
 				<td ng-show='update !== item._id'>{{ item.quantity }}</td>
 				
 				<td ng-show='update === item._id'>

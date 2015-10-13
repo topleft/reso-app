@@ -10,6 +10,7 @@ app.controller("myController", ['$scope', function($scope){
 		$scope.collections = {};
 		$scope.collections.newItem = {};
 		$scope.update = false;
+		$scope.username = '';
 }]);
 
 

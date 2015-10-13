@@ -19,7 +19,7 @@ function handleGetOne(res, id) {
 }
 
 function handlePost(res, name, type) {
-	newEvent = new Event({name: name, type: type});
+	var newEvent = new Event({name: name, type: type});
 	newEvent.saveQ()
 		.then(function(response){ res.json(response);})
 		.catch(function(err){ res.json(err);})

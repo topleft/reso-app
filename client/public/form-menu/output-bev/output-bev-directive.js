@@ -8,7 +8,7 @@ angular.module('eventDirectives')
 				},
 				templateUrl: '/form-menu/output-bev/output-bev.html',
 				controller: function($scope, bevMenuFactory, frontEndDataFactory){
-					console.log('bev output directive')
+					console.log('bev output directive: ', $scope.collections)
 					// get current user items if menu has been stored
 
 					// $scope.action.delete = false;

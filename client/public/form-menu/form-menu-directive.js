@@ -1,5 +1,5 @@
 angular.module('eventDirectives').
-	directive("formMenuTemplate", [function(){
+	directive("formMenuTemplate", [ 'formBasicsFactory', function(formBasicsFactory){
 		return {
 			restrict: 'E',
 			scope: {
@@ -19,11 +19,24 @@ angular.module('eventDirectives').
 				$scope.menu.totalGuests;
 				$scope.menu.hasMinors;
 
-
-				
-
 				$scope.menu.bev.selected = [];
 				$scope.menu.food.selected = [];
+
+
+				formBasicsFactory.getPopulatedUser()
+				.success(function(user){
+					console.log("User", user)
+					$scope.menu.userId = user._id;
+					$scope.menu.eventId = user.events._id;
+					$scope.menu.menuId = user.events.menu._id;
+					$scope.menu.bevMenuId = user.events.menu.bevs._id;
+					$scope.menu.foodMenuId = user.events.menu.food._id;
+				})
+				.catch(function(err){
+					console.log(err)
+				})
+
+				
 
 			}
 		};

@@ -26,11 +26,9 @@
 
 			<div ng-show="menu.toggle.bev === 'beer'" class="form-group">
 		    <label>Beers</label>
-				<select ng-model="menu.bev.beerSelect" class="form-control" type="text" placeholder="Select Beer" ng-change="addBev(menu.bev.beerSelect)">
+				<select ng-model="menu.bev.beerSelect" class="form-control" type="text" placeholder="Select Beer" ng-change="addBev(menu.bev.beerSelect)" >
 					<option value="" disabled selected='selected'>Beer Selection</option>
-				  <option value="Amber">Amber</option>
-				  <option value="Pale">Pale</option>
-				  <option value="IPA">IPA</option>
+				  <option ng-repeat="item in menu.bev.options" value="{{item._id}}" >{{item.item}}</option>
 				</select>
 			</div>
 			<div ng-show="menu.toggle.bev === 'wine'" class="form-group">

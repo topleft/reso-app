@@ -4,11 +4,15 @@ angular.module('factories')
 		var baseUrl = "/api/v1";
 
 		return {
-			addBevItem: function(bevItem, quantity) {
+			getAllBevOptions: function(){
+				return $http.get(baseUrl+'/bevs');
+			},
+			addBevItem: function(bevId, bevMenuId) {
+				console.log(bevId, bevMenuId);
 				return $http({
 						method: 'POST', 
-						url: baseUrl+'/bevs/menu',
-						data: {bevItem: bevItem, quantity: quantity}
+						url: baseUrl+'/menu/'+bevMenuId+'/bev',
+						data: {id: bevId}
 					});
 			},
 			getBevItem: function(menuId, bevId) {
