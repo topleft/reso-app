@@ -9,21 +9,21 @@
 			  <div class="form-group">
 			    <label for="start-time">Start Time</label>
 					<select ng-model="basics.start" class="form-control" type="time" placeholder="Start Time">
-					  <option>1:00</option>
-					  <option>2:00</option>
-					  <option>3:00</option>
-					  <option>4:00</option>
-					  <option>5:00</option>
+					  <option value='1'>1:00</option>
+					  <option value='2'>2:00</option>
+					  <option value='3'>3:00</option>
+					  <option value='4'>4:00</option>
+					  <option value='5'>5:00</option>
 					</select>
 				</div>
 			  <div class="form-group">
 			    <label for="start-time">End Time</label>
 					<select ng-model="basics.end" class="form-control" type="time" placeholder="End Time">
-					  <option>1:00</option>
-					  <option>2:00</option>
-					  <option>3:00</option>
-					  <option>4:00</option>
-					  <option>5:00</option>
+					  <option value='1'>1:00</option>
+					  <option value='2'>2:00</option>
+					  <option value='3'>3:00</option>
+					  <option value='4'>4:00</option>
+					  <option value='5'>5:00</option>
 					</select>
 				</div>
 			  <div class="form-group">
@@ -32,10 +32,10 @@
 			  </div>
 			  <div class="checkbox">
 			    <label>
-			      <input ng-model="basics.hasMinors" type="checkbox"> minors?
+			      <input ng-model="basics.isSurprise" type="checkbox"> surprise?
 			    </label>
 			  </div>
-			  <button type="submit" class="btn btn-default">Submit</button>
+			  <button type="button" class="btn btn-default" ng-click="basics.createEvent()">Submit</button>
 			</form>
 		</div>
 	</div>

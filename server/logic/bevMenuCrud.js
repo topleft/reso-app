@@ -11,7 +11,7 @@ function handleGetBevMenu(res, userId) {
 				console.log(err, user);
 			}
 			else {
-				res.send(user.bevMenus);
+				res.json(user.bevMenus);
 			}
 		});
 };

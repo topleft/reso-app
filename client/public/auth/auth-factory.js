@@ -33,6 +33,7 @@ angular.module('factories').factory('authFactory', [ '$http','$q', function($htt
 					return q.promise;
 			},
 			loginUser: function(username, password){
+				
 				var q = $q.defer();
 				$http.post('/login', {username: username, password: password})
 					.success(function(data, status){

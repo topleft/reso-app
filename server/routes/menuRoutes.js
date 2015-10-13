@@ -8,6 +8,39 @@ router.get('/menu/:userId', function(req, res, next) {
 	crud.handleGetEventMenuDeep(res, req.params.userId);
 });
 
+// add bev item to menu
+router.post('/menu/:bevMenuId/bev', function(req, res, next) {
+	crud.handlePostBevItem(res, req.params.bevMenuId, req.body.id);
+});
+
+// add item food to menu 
+router.post('/menu/:foodMenuId/food', function(req, res, next) {
+	crud.handlePostFoodItem(res, req.params.foodMenuId, req.body.id);
+});
+
+// update bev item quantity
+router.put('/menu/:bevMenuId/bev', function(req, res, next) {
+	crud.handleUpdateBevItemQuantity(res, req.params.bevMenuId, req.body.bevId, req.body.quantity);
+});
+
+// update food item quantity
+router.put('/menu/:foodMenuId/food', function(req, res, next) {
+	crud.handleUpdateFoodItemQuantity(res, req.params.foodMenuId, req.body.foodId, req.body.quantity);
+});
+
+// delete single bev item from menu
+router.delete('/menu/:bevMenuId/bev/:bevId', function(req, res, next) {
+	console.log(req.body.bevId)
+	crud.handleDeleteBevItem(res, req.params.bevMenuId, req.params.bevId);
+});
+
+// delete single food item from menu
+router.delete('/menu/:foodMenuId/food', function(req, res, next) {
+	crud.handleDeleteFoodItem(res, req.params.foodMenuId, req.body.foodId);
+});
+
+
+
 
 // post single bev item to user.events.menu.bevs
 // post single food item to user.events.menu.food

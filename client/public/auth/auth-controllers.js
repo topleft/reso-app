@@ -1,14 +1,15 @@
 var app = angular.module('myApp');
 
-app.controller("loginController", ['$scope', '$location', 'authFactory', function($scope, $location,authFactory){
-
+app.controller("loginController", ['$scope', '$location', 'authFactory', function($scope, $location, authFactory){
+		$scope.$parent.username = '';
 	$scope.login = function(){
 		$scope.error = false;
 		$scope.disable = true;
 		console.log($scope.login.username, $scope.login.password);
 		authFactory.loginUser($scope.login.username, $scope.login.password)
 			.then(function(){
-				$location.path('/');
+				$scope.$parent.username = $scope.login.username;
+				$location.path('/events/create');
 				$scope.disabled = false;
 				$scope.login = {};
 			})
@@ -29,7 +30,7 @@ app.controller("registerController", ['$scope', '$location', 'authFactory', func
 		$scope.disable = true;
 		authFactory.registerUser($scope.register.username, $scope.register.password)
 			.then(function(){
-				$location.path('/');
+				$location.path('/events/create');
 				$scope.diabled = false;
 				$scope.register = {};
 			})

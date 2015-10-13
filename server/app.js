@@ -20,7 +20,7 @@ var authRoutes = require('./routes/authRoutes.js');
 var bevRoutes = require('./routes/bevRoutes.js');
 var foodRoutes = require('./routes/foodRoutes.js');
 var menuRoutes = require('./routes/menuRoutes.js');
-vae userEventRoutes = require('./routes/userEventRoutes.js')
+var userEventRoutes = require('./routes/userEventRoutes.js');
 
 // *** express instance *** //
 var app = express();
@@ -40,11 +40,11 @@ mongoose.connect(config.mongoURI[app.settings.env],
 
 
 // *** view engine *** //
-// app.set('view engine', 'html');
+app.set('view engine', 'html');
 
 
 // *** static directory *** //
-// app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 
 
 // *** config middleware *** //
@@ -97,7 +97,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.send('error', {
       message: err.message,
       error: err
     });
@@ -108,7 +108,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.send('error', {
     message: err.message,
     error: {}
   });

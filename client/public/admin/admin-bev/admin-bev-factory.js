@@ -9,7 +9,7 @@ angular.module('factories')
 				return $http({
 						method: 'POST', 
 						url: baseUrl+'/bevs',
-						data: {item: item, type: type, servingSize: servingSize, menuPrice: menuPrice, costPerServing: costPerServing}
+						data: {item: item, type: type, servingSize: servingSize, menuPrice: menuPrice, costPerServing: costPerServing, quantity: 0}
 					});
 			},
 			getBevItem: function(id) {
