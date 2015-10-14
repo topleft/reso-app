@@ -38,5 +38,45 @@
 			  <button type="button" class="btn btn-default" ng-click="basics.createEvent()">Submit</button>
 			</form>
 		</div>
+		<div ng-hide="basics.toggle" class="col-md-5 col-md-offset-1">
+			<div class='panel'>
+				<div class="panel-body center">
+					<h3>Event Creation Dashboard</h3>	
+					<p>Business Lunches, Birthday Parties, Wakes.</p>
+					<p>Host your event at Gather!</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5 col-md-offset-1">
+			<table class="table" ng-show="basics.toggle">
+			<tr><th colspan="2" class="center"><h3>Details</h3></th></tr>
+			<tr >
+				<td>Location:</td>
+				<td>Gather</td>
+			</tr>
+			
+			<tr >
+				<td>Date: </td>
+				<td>{{ basics.event.parsedDate | date: 'fullDate'}}</td>
+			</tr>
+			<tr >
+				<td>Start Time: </td>
+				<td>{{basics.event.start}} o'clock</td>
+			</tr>				
+			<tr >
+				<td>Duration</td>
+				<td>{{basics.event.end - basics.event.start}}</td>
+			</tr>	
+			<tr >
+				<td>Total Guests</td>
+				<td>{{ basics.event.totalGuests}}</td>
+			</tr>
+			<tr >
+				<td>Surprise?</td>
+				<td>{{ basics.isSurprise}}</td>
+			</tr>
+
+		</table>
+		</div>
 	</div>
 </div>

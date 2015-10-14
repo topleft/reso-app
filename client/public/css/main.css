@@ -5,6 +5,17 @@ body {
   color: #999;
 }
 
+.center {
+	text-align: center;
+}
+
+.panel {
+	background-color: #555;
+	border-color: #777;
+	color: #999;
+
+}
+
 /*-------------------*/
 /*   nav styles     */
 /*-----------------*/

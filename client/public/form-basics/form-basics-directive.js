@@ -19,6 +19,8 @@ angular.module('eventDirectives').
 				$scope.basics.isSurprise;
 				$scope.basics.userId;
 
+				$scope.basics.toggle = false
+
 				$scope.basics.createEvent = function(){
 					formBasicsFactory.createEvent(
 								$scope.basics.date,
@@ -27,12 +29,14 @@ angular.module('eventDirectives').
 								$scope.basics.totalGuests,
 								$scope.basics.isSurprise )
 						.success(function(result){
-							console.log('create event: ', result.user);
 							$scope.basics.userId = result.user._id;
 							$scope.basics.eventId = result.user.events._id;
 							$scope.basics.menuId = result.user.events.menu._id;
 							$scope.basics.bevMenuId = result.user.events.menu.bevs._id;
 							$scope.basics.foodMenuId = result.user.events.menu.food._id;
+							$scope.basics.event = result.user.events;
+							$scope.basics.event.parsedDate = Date.parse(result.user.events.date);
+							$scope.basics.toggle = true;
 						})
 						.error(function(err){
 							console.log(err);
@@ -42,5 +46,4 @@ angular.module('eventDirectives').
 
 			}
 		}
-
 }]);

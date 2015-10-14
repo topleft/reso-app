@@ -13,7 +13,7 @@ function handlePostEventBasics(res, userId, date, start, end, totalGuests, surpr
 	newMenu.save();
 
 	var newEvent = new db.Event ({
-		date: null,
+		date: date,
 		start: start,
 		end: end,
 		totalGuests: totalGuests, 
