@@ -90,15 +90,14 @@ function handleDeleteBevItem(res, bevMenuId, bevId){
 						var bevs = menu.items
 						for(i=0; i< menu.items.length; i++) {
 							var bev = bevs[i]
-							console.log("WOTPTO: ", (bev+"") === bevId);
 							if ((bev+"")  === bevId){
 								menu.items.splice(i, 1);
 							}
-							db.BevMenu.findByIdAndUpdate(bevMenuId, {items: menu.items}, {new: true})
+						}
+						db.BevMenu.findByIdAndUpdate(bevMenuId, {items: menu.items}, {new: true})
 							.exec(function(result){
 								res.json(result);
 							});
-						}
 						// res.json({message: "Bev Item Deleted from Menu"});
 					}
 		});

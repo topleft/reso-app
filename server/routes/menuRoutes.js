@@ -53,8 +53,7 @@ router.delete('/menu/:foodMenuId/food', function(req, res, next) {
 
 
 
-router.get('menu/bevs', function(req, res, next) {s
-
+router.get('menu/bevs', function(req, res, next) {
 	crud.handleGetBevs(res);
 });
 
