@@ -12,6 +12,7 @@
 * highly modular
 * custom directives
 * isolated scopes
+* testing
 * simple, effective UX for CRUD operations
 	* in-place updating
 	* delete confirmation
